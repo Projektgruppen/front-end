@@ -34,11 +34,11 @@ const ModeratorComponent = () => {
         return () => clearInterval(interval);
     }, [])
 //TODO Fix this method so that it works
-    const approveMessage = (messageId) => {
+    const approveQuestion = (messageId) => {
 
          console.log(messageId)
 
-         QAMessageService.approveMessage(messageId).then((response) =>{
+         QAMessageService.approveQuestion(messageId).then((response) =>{
 
          }).catch(error =>{
              console.log(error);
@@ -73,7 +73,7 @@ const ModeratorComponent = () => {
                                                 message =>
                                                     <tr key = {message.id}>
                                                         <td>{message.question}</td>
-                                                        <button className="btn btn-success" onClick={() => approveMessage(2)}>Approve</button>
+                                                        <button className="btn btn-success" onClick={() => approveQuestion(2)}>Approve</button>
                                                     </tr>
                                             )
                                         }

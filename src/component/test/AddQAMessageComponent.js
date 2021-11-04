@@ -66,44 +66,19 @@ const AddQAMessageComponent = () => {
                         <div className="card-body">
                             <form>
                                 <div className= "form-group mb-2">
-                                    <label className="form-label"> Question</label>
+                                    <label className="form-label"> Answer</label>
                                     <input
                                         type="text"
-                                        placeholder="Enter question"
-                                        name="question"
+                                        placeholder="Enter answer"
+                                        name="answer"
                                         className="form-control"
-                                        value={question}
-                                        onChange={(e) => setQuestion(e.target.value)}
+                                        value={answer}
+                                        onChange = {(e) => setAnswer(e.target.value)}
                                     >
                                     </input>
-
-                                    <div className= "form-group mb-2">
-                                        <label className="form-label"> Answer</label>
-                                        <input
-                                            type="text"
-                                            placeholder="Enter answer"
-                                            name="answer"
-                                            className="form-control"
-                                            value={answer}
-                                            onChange = {(e) => setAnswer(e.target.value)}
-                                        >
-                                        </input>
-
-                                    </div>
-                                    <div className= "form-group mb-2">
-                                        <label> Approve </label>
-                                        <input
-                                            type="checkbox"
-                                            name="approve"
-                                            value={approve}
-                                            onChange={(e) => setApprove(e.target.value)}
-                                        >
-                                        </input>
-
-                                    </div>
-                                    <button className="btn btn-success" onClick={(e) => saveOrUpdateMessage(e)}>Submit</button>
-                                    <Link to = "/" className="btn btn-danger"> Cancel</Link>
                                 </div>
+                                <button className="btn btn-success" onClick={(e) => saveOrUpdateMessage(e)}>Submit</button>
+                                <Link to = "/" className="btn btn-danger"> Cancel</Link>
                             </form>
                         </div>
                     </div>

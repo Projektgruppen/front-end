@@ -4,6 +4,7 @@ import ListQAMessageComponent from './component/test/ListQAMessageComponent';
 import ModeratorComponent from './component/ModeratorComponent'
 import AddQAMessageComponent from "./component/test/AddQAMessageComponent";
 import StudentComponent from "./component/StudentComponent";
+import RecruiterComponent from "./component/RecruiterComponent";
 function App() {
   return (
     <div>
@@ -12,6 +13,9 @@ function App() {
                 <Switch>
                     //student routes
                     <Route path="/students" component={StudentComponent}></Route>
+
+                    //recruiter routes
+                    <Route path="/recruiters" component={RecruiterComponent}></Route>
 
                     //test routes
                     <Route exact path = "/" component= {ListQAMessageComponent}></Route>

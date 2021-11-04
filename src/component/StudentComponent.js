@@ -36,8 +36,8 @@ const StudentComponent = () => {
     }, [])
 
     //Creates a new message
-    const saveOrUpdateMessage = (e) => {
-        e.preventDefault();
+    const createMessage = (q) => {
+        q.preventDefault();
 
         const message = {question};
 
@@ -87,14 +87,15 @@ const StudentComponent = () => {
                                     <div className= "form-group mb-2">
                                         <input
                                             type="text"
+                                            id="sendQ"
                                             placeholder="Enter question"
                                             name="question"
                                             className="form-control"
                                             value={question}
-                                            onChange={(e) => setQuestion(e.target.value)}
+                                            onChange={(q) => setQuestion(q.target.value)}
                                         >
                                         </input><br></br>
-                                        <button type="button" className="btn btn-light btn-lg btn-rounded float-end hover-shadow click"  onClick={(e) => saveOrUpdateMessage(e)}>Ask Question</button>
+                                        <button className="btn btn-light btn-lg btn-rounded float-end hover-shadow click"  onClick={(q) => createMessage(q)}>Ask Question</button>
                                     </div>
                                 </form>
                         </div>

@@ -44,11 +44,11 @@ const StudentComponent = () => {
         StudentService.createQuestion(message).then((response) =>{
             console.log(response.data)
             history.push('/students');
+            setQuestion("");
         }).catch(error =>{
             console.log(error)
         })
     }
-
 
 
     return (
@@ -87,7 +87,6 @@ const StudentComponent = () => {
                                     <div className= "form-group mb-2">
                                         <input
                                             type="text"
-                                            id="sendQ"
                                             placeholder="Enter question"
                                             name="question"
                                             className="form-control"
@@ -95,7 +94,7 @@ const StudentComponent = () => {
                                             onChange={(q) => setQuestion(q.target.value)}
                                         >
                                         </input><br></br>
-                                        <button className="btn btn-light btn-lg btn-rounded float-end hover-shadow click"  onClick={(q) => createMessage(q)}>Ask Question</button>
+                                        <button type="submit" className="btn btn-light btn-lg btn-rounded float-end hover-shadow click"  onClick={(q) => createMessage(q)}>Ask Question</button>
                                     </div>
                                 </form>
                         </div>

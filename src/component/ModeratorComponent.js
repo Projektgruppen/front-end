@@ -5,7 +5,7 @@
 
 import React, {useState, useEffect} from "react";
 import {Link, useHistory, useParams} from 'react-router-dom'
-import QAMessageService from "../service/QAMessageTestService";
+import ModeratorService from "../service/ModeratorService";
 
 const ModeratorComponent = () => {
 
@@ -16,7 +16,7 @@ const ModeratorComponent = () => {
     const {id} = useParams();
 
     useEffect(() => {
-        QAMessageService.getAllMessages().then((response) =>{
+        ModeratorService.getAllUnapprovedMessages().then((response) =>{
             setMessages(response.data)
         }).catch(error => {
             console.log(error);
@@ -25,7 +25,7 @@ const ModeratorComponent = () => {
 
     useEffect(() => {
         const interval = setInterval(() => {
-            QAMessageService.getAllMessages().then((response) =>{
+            ModeratorService.getAllUnapprovedMessages().then((response) =>{
                 setMessages(response.data)
             }).catch(error => {
                 console.log(error);
@@ -35,24 +35,16 @@ const ModeratorComponent = () => {
     }, [])
 //TODO Fix this method so that it works
     const approveQuestion = (messageId) => {
+        messageId.preventDefault();
+        console.log(messageId)
 
-         console.log(messageId)
+        ModeratorService.approveQuestion(messageId).then((response) =>{
 
-         QAMessageService.approveQuestion(messageId).then((response) =>{
-
-         }).catch(error =>{
-             console.log(error);
+        }).catch(error =>{
+            console.log(error);
         })
     }
 
-    useEffect(() => {
-
-        QAMessageService.getMessagesById(id).then((response) => {
-            setApprove(response.data.approve)
-        }).catch(error => {
-            console.log(error)
-        })
-    }, []);
     return (
         <div>
             <br/> <br/>
@@ -64,8 +56,8 @@ const ModeratorComponent = () => {
                                 <div className= "form-group mb-2">
                                     <table className="table table-bordered table-striped">
                                         <thead>
-                                        <th> Question</th>
-                                        <th> Status </th>
+                                            <th> Question</th>
+                                            <th> Status </th>
                                         </thead>
                                         <tbody>
                                         {
@@ -73,7 +65,10 @@ const ModeratorComponent = () => {
                                                 message =>
                                                     <tr key = {message.id}>
                                                         <td>{message.question}</td>
-                                                        <button className="btn btn-success" onClick={() => approveQuestion(2)}>Approve</button>
+                                                        <td>
+                                                        <Link className="btn btn-info" onClick={() => approveQuestion(message.id)} to={`/moderators/${message.id}`} >Approve1</Link>
+                                                        <button className="btn btn-success" onClick={() => approveQuestion(message.id)}>Approve2</button>
+                                                        </td>
                                                     </tr>
                                             )
                                         }

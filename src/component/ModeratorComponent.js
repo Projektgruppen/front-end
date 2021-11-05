@@ -15,31 +15,35 @@ const ModeratorComponent = () => {
     const history = useHistory();
     const {id} = useParams();
 
+    //runs when page refreshes
     useEffect(() => {
+        getAllUnapprovedMessages();
+    }, [])
+
+    //runs when page refreshes but afterwards every second
+    useEffect(() => {
+        const interval = setInterval(() => {
+            getAllUnapprovedMessages();
+        }, 1000);
+        return () => clearInterval(interval);
+    }, [])
+
+    //sets shown messages to be all the unapproved questions
+    const getAllUnapprovedMessages = () =>{
         ModeratorService.getAllUnapprovedMessages().then((response) =>{
             setMessages(response.data)
         }).catch(error => {
             console.log(error);
         })
-    }, [])
+    }
 
-    useEffect(() => {
-        const interval = setInterval(() => {
-            ModeratorService.getAllUnapprovedMessages().then((response) =>{
-                setMessages(response.data)
-            }).catch(error => {
-                console.log(error);
-            })
-        }, 1000);
-        return () => clearInterval(interval);
-    }, [])
-//TODO Fix this method so that it works
+    //sets the approve value of a question to true
     const approveQuestion = (messageId) => {
-        messageId.preventDefault();
+
         console.log(messageId)
 
         ModeratorService.approveQuestion(messageId).then((response) =>{
-
+        getAllUnapprovedMessages();
         }).catch(error =>{
             console.log(error);
         })
@@ -66,8 +70,7 @@ const ModeratorComponent = () => {
                                                     <tr key = {message.id}>
                                                         <td>{message.question}</td>
                                                         <td>
-                                                        <Link className="btn btn-info" onClick={() => approveQuestion(message.id)} to={`/moderators/${message.id}`} >Approve1</Link>
-                                                        <button className="btn btn-success" onClick={() => approveQuestion(message.id)}>Approve2</button>
+                                                        <Link className="btn btn-success" onClick={() => approveQuestion(message.id)} to="/moderators/" >Approve</Link>
                                                         </td>
                                                     </tr>
                                             )

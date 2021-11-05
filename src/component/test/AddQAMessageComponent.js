@@ -19,7 +19,7 @@ const AddQAMessageComponent = () => {
 
         if(id){
             QAMessageService.updateMessages(id,message).then((response) =>{
-                history.push('/')
+                history.push('/recruiters')
             }).catch(error =>{
                 console.log(error);
             })

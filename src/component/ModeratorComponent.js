@@ -5,7 +5,7 @@
 
 import React, {useState, useEffect} from "react";
 import {Link, useHistory, useParams} from 'react-router-dom'
-import QAMessageService from "../service/QAMessageTestService";
+import ModeratorService from "../service/ModeratorService";
 
 const ModeratorComponent = () => {
 
@@ -15,44 +15,40 @@ const ModeratorComponent = () => {
     const history = useHistory();
     const {id} = useParams();
 
+    //runs when page refreshes
     useEffect(() => {
-        QAMessageService.getAllMessages().then((response) =>{
+        getAllUnapprovedMessages();
+    }, [])
+
+    //runs when page refreshes but afterwards every second
+    useEffect(() => {
+        const interval = setInterval(() => {
+            getAllUnapprovedMessages();
+        }, 1000);
+        return () => clearInterval(interval);
+    }, [])
+
+    //sets shown messages to be all the unapproved questions
+    const getAllUnapprovedMessages = () =>{
+        ModeratorService.getAllUnapprovedMessages().then((response) =>{
             setMessages(response.data)
         }).catch(error => {
             console.log(error);
         })
-    }, [])
+    }
 
-    useEffect(() => {
-        const interval = setInterval(() => {
-            QAMessageService.getAllMessages().then((response) =>{
-                setMessages(response.data)
-            }).catch(error => {
-                console.log(error);
-            })
-        }, 1000);
-        return () => clearInterval(interval);
-    }, [])
-//TODO Fix this method so that it works
-    const approveMessage = (messageId) => {
+    //sets the approve value of a question to true
+    const approveQuestion = (messageId) => {
 
-         console.log(messageId)
+        console.log(messageId)
 
-         QAMessageService.approveMessage(messageId).then((response) =>{
-
-         }).catch(error =>{
-             console.log(error);
+        ModeratorService.approveQuestion(messageId).then((response) =>{
+        getAllUnapprovedMessages();
+        }).catch(error =>{
+            console.log(error);
         })
     }
 
-    useEffect(() => {
-
-        QAMessageService.getMessagesById(id).then((response) => {
-            setApprove(response.data.approve)
-        }).catch(error => {
-            console.log(error)
-        })
-    }, []);
     return (
         <div>
             <br/> <br/>
@@ -64,8 +60,8 @@ const ModeratorComponent = () => {
                                 <div className= "form-group mb-2">
                                     <table className="table table-bordered table-striped">
                                         <thead>
-                                        <th> Question</th>
-                                        <th> Status </th>
+                                            <th> Question</th>
+                                            <th> Status </th>
                                         </thead>
                                         <tbody>
                                         {
@@ -73,7 +69,9 @@ const ModeratorComponent = () => {
                                                 message =>
                                                     <tr key = {message.id}>
                                                         <td>{message.question}</td>
-                                                        <button className="btn btn-success" onClick={() => approveMessage(2)}>Approve</button>
+                                                        <td>
+                                                        <Link className="btn btn-success" onClick={() => approveQuestion(message.id)} to="/moderators/" >Approve</Link>
+                                                        </td>
                                                     </tr>
                                             )
                                         }

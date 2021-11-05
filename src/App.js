@@ -17,12 +17,15 @@ function App() {
                     //recruiter routes
                     <Route path="/recruiters" component={RecruiterComponent}></Route>
 
+                    //moderator routes
+                    <Route path="/moderators" component={ModeratorComponent}></Route>
+                    
                     //test routes
                     <Route exact path = "/" component= {ListQAMessageComponent}></Route>
                     <Route path = "/test" component= {ListQAMessageComponent}></Route>
                     <Route path = "/add-message" component= {AddQAMessageComponent}></Route>
                     <Route path="/edit-message/:id" component = {AddQAMessageComponent}></Route>
-                    <Route path="/moderatorview" component={ModeratorComponent}></Route>
+                    
                 </Switch>
             </div>
         </Router>

@@ -5,6 +5,7 @@ import ModeratorComponent from './component/ModeratorComponent'
 import AddQAMessageComponent from "./component/test/AddQAMessageComponent";
 import StudentComponent from "./component/StudentComponent";
 import RecruiterComponent from "./component/RecruiterComponent";
+import LogComponent from './component/LogComponent';
 function App() {
   return (
     <div>
@@ -19,6 +20,8 @@ function App() {
 
                     //moderator routes
                     <Route path="/moderators" component={ModeratorComponent}></Route>
+
+                    <Route path="/logs" component={LogComponent}></Route>
                     
                     //test routes
                     <Route exact path = "/" component= {ListQAMessageComponent}></Route>

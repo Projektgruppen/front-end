@@ -4,7 +4,7 @@ import RecruiterService from "../service/RecruiterService";
 
 const RecruiterComponent = () => {
 
-    const [question, setQuestion] = useState('');
+    //const [question, setQuestion] = useState('');
     const [messages, setMessages] = useState([])
     const [answer, setAnswer] = useState('');
 
@@ -13,7 +13,7 @@ const RecruiterComponent = () => {
 
     //Fetches all messages when page loads.
     useEffect(() => {
-        RecruiterService.getAllApprovedMessages().then((response) =>{
+        RecruiterService.getNoneAnsweredApprovedMessages().then((response) =>{
             setMessages(response.data)
             console.log(response.data);
         }).catch(error => {
@@ -24,7 +24,7 @@ const RecruiterComponent = () => {
     //Fetches all messages once every second.
     useEffect(() => {
         const interval = setInterval(() => {
-            RecruiterService.getAllApprovedMessages().then((response) =>{
+            RecruiterService.getNoneAnsweredApprovedMessages().then((response) =>{
                 setMessages(response.data)
                 console.log(response.data);
             }).catch(error => {
@@ -34,29 +34,24 @@ const RecruiterComponent = () => {
         return () => clearInterval(interval);
     }, [])
 
-    //Answer message
-    useEffect(() => {
-        RecruiterService.getMessagesById(id).then((response) => {
-            //setQuestion(response.data.question)
-            setAnswer(response.data.answer)
+
+    const getNoneAnsweredApprovedMessages = () => {
+        RecruiterService.getNoneAnsweredApprovedMessages().then((response) =>{
+            setAnswer(response.data)
         }).catch(error => {
             console.log(error)
         })
-    }, []);
-    const title = () => {
-        if(id){
-            return <h2 className="text-center"> Update Message</h2>
-        }
     }
 
+
     //Update question with answer
-    const answerMessage = (a) => {
-        a.preventDefault();
+    const answerMessage = (a,id) => {
 
-        const message = {answer};
+        const answer = {a}
 
-        RecruiterService.updateMessages(id,message).then((response) =>{
-            history.push('/recruiters')
+
+        RecruiterService.updateMessages(id,answer).then((response) =>{
+            getNoneAnsweredApprovedMessages()
         }).catch(error =>{
             console.log(error);
         })
@@ -89,11 +84,22 @@ const RecruiterComponent = () => {
                             <tr key = {message.id}>
                                 <td>{message.id}</td>
                                 <td>{message.question}</td>
-                                <td>{message.answer}</td>
-                                <td>{checkIfApproved(message.approve)}</td>
                                 <td>
-                                    <Link className="btn btn-info" to={`/edit-message/${message.id}`}> Update </Link>
+                                    <form>
+                                        <input
+                                            type = "text"
+                                            placeholder="Enter answer"
+                                            name = "answer"
+                                            className="form-control"
+                                            value={answer}
+                                            onChange={(a)=> setAnswer(a.target.value)}
+                                            >
+                                        </input>
+                                        <Link className="btn btn-success" onClick={() => answerMessage(answer,message.id)}  to="/recruiters/"> Answer</Link>
+                                    </form>
                                 </td>
+                                <td>{checkIfApproved(message.approve)}</td>
+
                             </tr>
                     )
                 }

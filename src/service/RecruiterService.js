@@ -4,7 +4,7 @@ const STUDENT_BASE_REST_API_URL = 'http://localhost:8080/api/v1/recruiters'
 
 class RecruiterService {
 
-    getAllApprovedMessages(){
+    getNoneAnsweredApprovedMessages(){
         return axios.get(STUDENT_BASE_REST_API_URL)
     }
 
@@ -12,8 +12,8 @@ class RecruiterService {
         return axios.get(STUDENT_BASE_REST_API_URL + "/" + messageId);
     }
 
-    updateMessages(messageId, message){
-        return axios.put(STUDENT_BASE_REST_API_URL + '/' + messageId, message);
+    updateMessages(messageId, answer){
+        return axios.put(STUDENT_BASE_REST_API_URL + '/' + messageId, answer);
     }
 
 }

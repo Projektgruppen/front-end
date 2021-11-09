@@ -21,6 +21,7 @@ function App() {
                     //moderator routes
                     <Route path="/moderators" component={ModeratorComponent}></Route>
 
+                    //log page route
                     <Route path="/logs" component={LogComponent}></Route>
                     
                     //test routes

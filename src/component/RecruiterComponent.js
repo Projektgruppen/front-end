@@ -46,9 +46,7 @@ const RecruiterComponent = () => {
 
     //Update question with answer
     const answerMessage = (a,id) => {
-
         const answer = {a}
-
 
         RecruiterService.updateMessages(id,answer).then((response) =>{
             getNoneAnsweredApprovedMessages()
@@ -91,7 +89,7 @@ const RecruiterComponent = () => {
                                             placeholder="Enter answer"
                                             name = "answer"
                                             className="form-control"
-                                            value={answer}
+                                            value={message.id.answer}
                                             onChange={(a)=> setAnswer(a.target.value)}
                                             >
                                         </input>

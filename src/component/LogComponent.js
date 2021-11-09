@@ -15,7 +15,6 @@ const LogComponent = () => {
                    <td> Test </td>  
                    <td> <a href="http://localhost:8080/api/v1/logs/download" rel="nofollow"> Download </a> </td>
                 </tr>
-                
             </tbody>
         </table>
     </div>

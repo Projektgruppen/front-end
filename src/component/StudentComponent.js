@@ -14,12 +14,14 @@ const StudentComponent = () => {
 
     //Fetches all messages when page loads.
     useEffect(() => {
-        StudentService.getAllApprovedMessages().then((response) =>{
-            setMessages(response.data)
-            console.log(response.data);
-        }).catch(error => {
-            console.log(error);
-        })
+        const updateStudentView = () => {
+            StudentService.getAllApprovedMessages().then((response) => {
+                setMessages(response.data)
+                console.log(response.data);
+            }).catch(error => {
+                console.log(error);
+            })
+        }
     }, [])
 
     //Fetches all messages once every second.
@@ -35,6 +37,22 @@ const StudentComponent = () => {
         return () => clearInterval(interval);
     }, [])
 
+
+    function countDown() {
+        let i = 10;
+        document.getElementById("inputQuestion").readOnly = true;
+        let cooldown = setInterval(function () {
+            setQuestion("You can now write again in: " + i + " sec");
+            i --;
+            if(i < 0){
+                clearInterval(cooldown);
+                document.getElementById("inputQuestion").readOnly = false;
+                return setQuestion("")
+            }
+    }, 1000)
+    }
+
+
     //Creates a new message
     const createMessage = (q) => {
         q.preventDefault();
@@ -44,7 +62,7 @@ const StudentComponent = () => {
         StudentService.createQuestion(message).then((response) =>{
             console.log(response.data)
             history.push('/students');
-            setQuestion("");
+            countDown();
         }).catch(error =>{
             console.log(error)
         })
@@ -86,6 +104,7 @@ const StudentComponent = () => {
                                 <form>
                                     <div className= "form-group mb-2">
                                         <input
+                                            id="inputQuestion"
                                             type="text"
                                             placeholder="Enter question"
                                             name="question"

@@ -37,7 +37,7 @@ const StudentComponent = () => {
         return () => clearInterval(interval);
     }, [])
 
-
+    //Student question cooldown function.
     function countDown() {
         let i = 10;
         document.getElementById("inputQuestion").readOnly = true;

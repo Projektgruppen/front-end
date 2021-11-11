@@ -37,16 +37,23 @@ const StudentComponent = () => {
         return () => clearInterval(interval);
     }, [])
 
-    //Student question cooldown function.
+
+
+    //Student question cooldown function
     function countDown() {
         let i = 10;
         document.getElementById("inputQuestion").readOnly = true;
+        const button = document.querySelector('button');
+        button.disabled = true;
+
         let cooldown = setInterval(function () {
             setQuestion("You can now write again in: " + i + " sec");
             i --;
             if(i < 0){
                 clearInterval(cooldown);
                 document.getElementById("inputQuestion").readOnly = false;
+                button.disabled = false;
+
                 return setQuestion("")
             }
     }, 1000)
@@ -104,6 +111,7 @@ const StudentComponent = () => {
                                 <form>
                                     <div className= "form-group mb-2">
                                         <input
+                                            onKeyPress=""
                                             id="inputQuestion"
                                             type="text"
                                             placeholder="Enter question"
@@ -113,7 +121,7 @@ const StudentComponent = () => {
                                             onChange={(q) => setQuestion(q.target.value)}
                                         >
                                         </input><br></br>
-                                        <button type="submit" className="btn btn-light btn-lg btn-rounded float-end hover-shadow click"  onClick={(q) => createMessage(q)}>Ask Question</button>
+                                        <button type="submit" id="sendQuestion" className="btn btn-light btn-lg btn-rounded float-end hover-shadow click"  onClick={(q) => createMessage(q)}>Ask Question</button>
                                     </div>
                                 </form>
                         </div>
@@ -123,4 +131,5 @@ const StudentComponent = () => {
         </div>
     )
 }
+
 export default StudentComponent

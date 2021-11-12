@@ -1,55 +1,35 @@
 import React, {useState, useEffect} from "react";
-import {Link, useHistory, useParams} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import RecruiterService from "../service/RecruiterService";
 
 const RecruiterComponent = () => {
 
-    //const [question, setQuestion] = useState('');
-    const [messages, setMessages] = useState([])
-    const [answer, setAnswer] = useState('');
+    const [qaMessages, setQAMessages] = useState([])
+    const [answer, setAnswer] = useState([]);
 
-    const history = useHistory();
-    const {id} = useParams();
-
-    //Fetches all messages when page loads.
-    useEffect(() => {
-        RecruiterService.getNoneAnsweredApprovedMessages().then((response) =>{
-            setMessages(response.data)
-            console.log(response.data);
+    const getAllNoneAnsweredApprovedQAMessages = () => {
+        RecruiterService.getAllNoneAnsweredApprovedQAMessages().then((response) =>{
+            setQAMessages(response.data)
         }).catch(error => {
-            console.log(error);
+            console.log(error)
         })
-    }, [])
-
+    }
     //Fetches all messages once every second.
     useEffect(() => {
+        getAllNoneAnsweredApprovedQAMessages();
         const interval = setInterval(() => {
-            RecruiterService.getNoneAnsweredApprovedMessages().then((response) =>{
-                setMessages(response.data)
-                console.log(response.data);
-            }).catch(error => {
-                console.log(error);
-            })
+            getAllNoneAnsweredApprovedQAMessages();
         }, 1000);
         return () => clearInterval(interval);
     }, [])
 
 
-    const getNoneAnsweredApprovedMessages = () => {
-        RecruiterService.getNoneAnsweredApprovedMessages().then((response) =>{
-            setAnswer(response.data)
-        }).catch(error => {
-            console.log(error)
-        })
-    }
-
-
     //Update question with answer
-    const answerMessage = (a,id) => {
+    const answerQAMessage = (a,id) => {
         const answer = {a}
 
-        RecruiterService.updateMessages(id,answer).then((response) =>{
-            getNoneAnsweredApprovedMessages()
+        RecruiterService.updateQAMessageAnswer(id,answer).then((response) =>{
+            getAllNoneAnsweredApprovedQAMessages()
         }).catch(error =>{
             console.log(error);
         })
@@ -77,7 +57,7 @@ const RecruiterComponent = () => {
                 </thead>
                 <tbody>
                 {
-                    messages.map(
+                    qaMessages.map(
                         message =>
                             <tr key = {message.id}>
                                 <td>{message.id}</td>
@@ -93,7 +73,7 @@ const RecruiterComponent = () => {
                                             onChange={(a)=> setAnswer(a.target.value)}
                                             >
                                         </input>
-                                        <Link className="btn btn-success" onClick={() => answerMessage(answer,message.id)}  to="/recruiters/"> Answer</Link>
+                                        <Link className="btn btn-success" onClick={() => answerQAMessage(answer,message.id)}  to="/recruiters/"> Answer</Link>
                                     </form>
                                 </td>
                                 <td>{checkIfApproved(message.approve)}</td>

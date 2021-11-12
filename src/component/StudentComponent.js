@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from "react";
-import {Link, useHistory, useParams} from 'react-router-dom'
-import QAMessageService from "../service/QAMessageTestService";
+import {useHistory} from 'react-router-dom'
 import StudentService from "../service/StudentService";
 
 const StudentComponent = () => {
@@ -10,29 +9,21 @@ const StudentComponent = () => {
 
 
     const history = useHistory();
-    const {id} = useParams();
 
-    //Fetches all messages when page loads.
-    useEffect(() => {
-        const updateStudentView = () => {
-            StudentService.getAllApprovedMessages().then((response) => {
-                setMessages(response.data)
-                console.log(response.data);
-            }).catch(error => {
-                console.log(error);
-            })
-        }
-    }, [])
+    const getAllApprovedQAMessages = () => {
+        StudentService.getAllApprovedQAMessages().then((response) => {
+            setMessages(response.data)
+            console.log(response.data);
+        }).catch(error => {
+            console.log(error);
+        })
+    }
 
     //Fetches all messages once every second.
     useEffect(() => {
+        getAllApprovedQAMessages();
         const interval = setInterval(() => {
-            StudentService.getAllApprovedMessages().then((response) =>{
-                setMessages(response.data)
-                console.log(response.data);
-            }).catch(error => {
-                console.log(error);
-            })
+            getAllApprovedQAMessages();
         }, 1000);
         return () => clearInterval(interval);
     }, [])
@@ -46,11 +37,11 @@ const StudentComponent = () => {
         const button = document.querySelector('button');
         button.disabled = true;
 
-        let cooldown = setInterval(function () {
+        let coolDown = setInterval(function () {
             setQuestion("You can now write again in: " + i + " sec");
             i --;
             if(i < 0){
-                clearInterval(cooldown);
+                clearInterval(coolDown);
                 document.getElementById("inputQuestion").readOnly = false;
                 button.disabled = false;
 
@@ -61,12 +52,12 @@ const StudentComponent = () => {
 
 
     //Creates a new message
-    const createMessage = (q) => {
+    const createQAMessage = (q) => {
         q.preventDefault();
 
         const message = {question};
 
-        StudentService.createQuestion(message).then((response) =>{
+        StudentService.createQAMessage(message).then((response) =>{
             console.log(response.data)
             history.push('/students');
             countDown();
@@ -121,7 +112,7 @@ const StudentComponent = () => {
                                             onChange={(q) => setQuestion(q.target.value)}
                                         >
                                         </input><br></br>
-                                        <button type="submit" id="sendQuestion" className="btn btn-light btn-lg btn-rounded float-end hover-shadow click"  onClick={(q) => createMessage(q)}>Ask Question</button>
+                                        <button type="submit" id="sendQuestion" className="btn btn-light btn-lg btn-rounded float-end hover-shadow click"  onClick={(q) => createQAMessage(q)}>Ask Question</button>
                                     </div>
                                 </form>
                         </div>

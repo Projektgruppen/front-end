@@ -1,49 +1,34 @@
-//Work in progress.
-//This view does not work yet.
-
-
-
 import React, {useState, useEffect} from "react";
-import {Link, useHistory, useParams} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import ModeratorService from "../service/ModeratorService";
 
 const ModeratorComponent = () => {
 
-    const [approve, setApprove] = useState('');
-    const [messages, setMessages] = useState([])
-
-    const history = useHistory();
-    const {id} = useParams();
-
-    //runs when page refreshes
-    useEffect(() => {
-        getAllUnapprovedMessages();
-    }, [])
-
-    //runs when page refreshes but afterwards every second
-    useEffect(() => {
-        const interval = setInterval(() => {
-            getAllUnapprovedMessages();
-        }, 1000);
-        return () => clearInterval(interval);
-    }, [])
+    const [qaMessages, setQAMessages] = useState([])
 
     //sets shown messages to be all the unapproved questions
-    const getAllUnapprovedMessages = () =>{
-        ModeratorService.getAllUnapprovedMessages().then((response) =>{
-            setMessages(response.data)
+    const getAllUnapprovedQAMessages = () =>{
+        ModeratorService.getAllUnapprovedQAMessages().then((response) =>{
+            setQAMessages(response.data)
         }).catch(error => {
             console.log(error);
         })
     }
 
+    //runs when page refreshes but afterwards every second
+    useEffect(() => {
+        getAllUnapprovedQAMessages();
+        const interval = setInterval(() => {
+            getAllUnapprovedQAMessages();
+        }, 1000);
+        return () => clearInterval(interval);
+    }, [])
+
+
     //sets the approve value of a question to true
-    const approveQuestion = (messageId) => {
-
-        console.log(messageId)
-
-        ModeratorService.approveQuestion(messageId).then((response) =>{
-        getAllUnapprovedMessages();
+    const approveQAMessage = (messageId) => {
+        ModeratorService.approveQAMessage(messageId).then((response) =>{
+        getAllUnapprovedQAMessages();
         }).catch(error =>{
             console.log(error);
         })
@@ -65,12 +50,12 @@ const ModeratorComponent = () => {
                                         </thead>
                                         <tbody>
                                         {
-                                            messages.map(
+                                            qaMessages.map(
                                                 message =>
                                                     <tr key = {message.id}>
                                                         <td>{message.question}</td>
                                                         <td>
-                                                        <Link className="btn btn-success" onClick={() => approveQuestion(message.id)} to="/moderators/" >Approve</Link>
+                                                        <Link className="btn btn-success" onClick={() => approveQAMessage(message.id)} to="/moderators/" >Approve</Link>
                                                         </td>
                                                     </tr>
                                             )

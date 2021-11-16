@@ -10,3 +10,11 @@
 .click:hover{
   opacity: 0.3;
 }
+
+.approved{
+  visibility: hidden;
+}
+
+.reviewed{
+  visibility: hidden;
+}

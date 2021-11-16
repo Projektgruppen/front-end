@@ -34,6 +34,16 @@ const ModeratorComponent = () => {
         })
     }
 
+    //sets the review value of a question to true
+    const reviewQAMessage = (messageId) => {
+        ModeratorService.reviewQAMessage(messageId).then((response) =>{
+        getAllUnapprovedQAMessages();
+        }).catch(error =>{
+            console.log(error);
+        })
+    }
+    
+
     return (
         <div>
             <br/> <br/>
@@ -56,6 +66,7 @@ const ModeratorComponent = () => {
                                                         <td>{message.question}</td>
                                                         <td>
                                                         <Link className="btn btn-success" onClick={() => approveQAMessage(message.id)} to="/moderators/" >Approve</Link>
+                                                        <Link className="btn btn-primary" onClick={() => reviewQAMessage(message.id)} to="/moderators/" >Review</Link>
                                                         </td>
                                                     </tr>
                                             )

@@ -7,8 +7,8 @@ const RecruiterComponent = () => {
     const [qaMessages, setQAMessages] = useState([])
     const [answer, setAnswer] = useState([]);
 
-    const getAllNoneAnsweredApprovedQAMessages = () => {
-        RecruiterService.getAllNoneAnsweredApprovedQAMessages().then((response) =>{
+    const getAllReviewedQAMessages = () => {
+        RecruiterService.getAllReviewedQAMessages().then((response) =>{
             setQAMessages(response.data)
         }).catch(error => {
             console.log(error)
@@ -16,9 +16,9 @@ const RecruiterComponent = () => {
     }
     //Fetches all messages once every second.
     useEffect(() => {
-        getAllNoneAnsweredApprovedQAMessages();
+        getAllReviewedQAMessages();
         const interval = setInterval(() => {
-            getAllNoneAnsweredApprovedQAMessages();
+            getAllReviewedQAMessages();
         }, 1000);
         return () => clearInterval(interval);
     }, [])
@@ -29,7 +29,7 @@ const RecruiterComponent = () => {
         const answer = {a}
 
         RecruiterService.updateQAMessageAnswer(id,answer).then((response) =>{
-            getAllNoneAnsweredApprovedQAMessages()
+            getAllReviewedQAMessages()
         }).catch(error =>{
             console.log(error);
         })
@@ -52,8 +52,6 @@ const RecruiterComponent = () => {
                 <th> Id</th>
                 <th> Question</th>
                 <th> Answer</th>
-                <th> Approved</th>
-                <th> Actions</th>
                 </thead>
                 <tbody>
                 {
@@ -76,7 +74,7 @@ const RecruiterComponent = () => {
                                         <Link className="btn btn-success" onClick={() => answerQAMessage(answer,message.id)}  to="/recruiters/"> Answer</Link>
                                     </form>
                                 </td>
-                                <td>{checkIfApproved(message.approve)}</td>
+                                
 
                             </tr>
                     )

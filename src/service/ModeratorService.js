@@ -9,7 +9,12 @@ class ModeratorService {
     }
 
     approveQAMessage(messageId){
-        return axios.put(MODERATOR_BASE_REST_API_URL + '/'+ messageId)
+        return axios.put(MODERATOR_BASE_REST_API_URL + '/approve/'+ messageId)
+
+    }
+
+    reviewQAMessage(messageId){
+        return axios.put(MODERATOR_BASE_REST_API_URL + '/review/'+ messageId)
 
     }
 

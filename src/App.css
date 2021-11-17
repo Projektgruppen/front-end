@@ -12,9 +12,13 @@
 }
 
 .approved{
-  visibility: hidden;
+  opacity: 0.5;
+  pointer-events: none;
+  color: grey;
 }
 
 .reviewed{
-  visibility: hidden;
+  opacity: 0.5;
+  pointer-events: none;
+  color: grey;
 }

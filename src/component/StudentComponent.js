@@ -6,10 +6,19 @@ const StudentComponent = () => {
 
     const [question, setQuestion] = useState('');
     const [messages, setMessages] = useState([])
+    const [answers,setAnswers] = useState('')
 
 
     const history = useHistory();
 
+
+    const getAllAnswers = () => {
+        StudentService.getAllAnswers().then((response) => {
+            setAnswers(response.data)
+        }).catch(error => {
+            console.log(error);
+        })
+    }
     const getAllApprovedQAMessages = () => {
         StudentService.getAllApprovedQAMessages().then((response) => {
             setMessages(response.data)
@@ -22,8 +31,10 @@ const StudentComponent = () => {
     //Fetches all messages once every second.
     useEffect(() => {
         getAllApprovedQAMessages();
+        getAllAnswers();
         const interval = setInterval(() => {
             getAllApprovedQAMessages();
+            getAllAnswers();
         }, 1000);
         return () => clearInterval(interval);
     }, [])
@@ -84,7 +95,7 @@ const StudentComponent = () => {
                                         message =>
                                             <tr key = {message.id}>
                                                 <td className="small p-2 ms-3 mb-1 rounded-3">{message.question}</td>
-                                                <td className="small p-2 ms-3 mb-1 rounded-3">{message.answer}</td>
+                                                <td className="small p-2 ms-3 mb-1 rounded-3">{answers.toString()}</td>
                                             </tr>
                                     )
                                 }

@@ -70,6 +70,7 @@ const StudentComponent = () => {
     return (
         <div>
             <div className="container py-5">
+            <h2 className = "text-center">Student view</h2>
                 <div className="d-flex justify-content-center">
                     <div className="col-md col-lg-8 col-xl-6">
                         <div className="d-flex flex-row justify-content-start">

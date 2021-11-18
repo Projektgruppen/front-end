@@ -66,10 +66,7 @@ const ModeratorComponent = () => {
                                                     <tr key = {message.id}>
                                                         <td>{message.question}</td>
                                                         <td>
-                                                            
                                                         <Link  className={`btn btn-success ${message.approve ? "approved" : ""}`} onClick={() => approveQAMessage(message.id)} to="/moderators/" >Approve</Link>
-                                            
-                                                        
                                                         <Link className={`btn btn-primary ${message.review ? "reviewed" : ""}`} onClick={() => reviewQAMessage(message.id)} to="/moderators/" >Review</Link>
                                                         </td>
                                                     </tr>

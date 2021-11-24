@@ -2,6 +2,11 @@ import React, {useState, useEffect} from "react";
 import {Link} from 'react-router-dom'
 import ModeratorService from "../service/ModeratorService";
 
+import ToggleButton from "'./components/ToggleButton";
+
+const Checked = () => <>🤪</>;
+const UnChecked = () => <>🙂</>
+
 const ModeratorComponent = () => {
 
     const [qaMessages, setQAMessages] = useState([])
@@ -49,6 +54,8 @@ const ModeratorComponent = () => {
             <br/> <br/>
             <div className="container">
             <h2 className = "text-center">Moderator view</h2>
+            <p>Toggle Button</p>
+                <ToggleButton />
                 <div className="row">
                     <div className="card col-md-6 offset-md-3 offset-md-3">
                         <div className="card-body">

@@ -1,28 +1,18 @@
 import React, {useState, useEffect} from "react";
-import {useHistory} from 'react-router-dom'
+import {Link, useHistory, useParams} from 'react-router-dom'
 import StudentService from "../service/StudentService";
 
 const StudentComponent = () => {
 
     const [question, setQuestion] = useState('');
     const [messages, setMessages] = useState([])
-    const [answers,setAnswers] = useState('')
-
+    const {organisationName} = useParams();
 
     const history = useHistory();
 
-
-    const getAllAnswers = () => {
-        StudentService.getAllAnswers().then((response) => {
-            setAnswers(response.data)
-        }).catch(error => {
-            console.log(error);
-        })
-    }
     const getAllApprovedQAMessages = () => {
-        StudentService.getAllApprovedQAMessages().then((response) => {
+        StudentService.getAllApprovedQuestions(organisationName).then((response) => {
             setMessages(response.data)
-            console.log(response.data);
         }).catch(error => {
             console.log(error);
         })
@@ -31,14 +21,11 @@ const StudentComponent = () => {
     //Fetches all messages once every second.
     useEffect(() => {
         getAllApprovedQAMessages();
-        getAllAnswers();
         const interval = setInterval(() => {
             getAllApprovedQAMessages();
-            getAllAnswers();
         }, 1000);
         return () => clearInterval(interval);
     }, [])
-
 
 
     //Student question cooldown function
@@ -50,84 +37,72 @@ const StudentComponent = () => {
 
         let coolDown = setInterval(function () {
             setQuestion("You can now write again in: " + i + " sec");
-            i --;
-            if(i < 0){
+            i--;
+            if (i < 0) {
                 clearInterval(coolDown);
                 document.getElementById("inputQuestion").readOnly = false;
                 button.disabled = false;
 
                 return setQuestion("")
             }
-    }, 1000)
+        }, 1000)
     }
 
 
     //Creates a new message
     const createQAMessage = (q) => {
         q.preventDefault();
-
         const message = {question};
 
-        StudentService.createQAMessage(message).then((response) =>{
+
+        StudentService.createQAMessage(organisationName, message).then((response) => {
             console.log(response.data)
-            history.push('/students');
+            history.push(`/students/${organisationName}`);
             countDown();
-        }).catch(error =>{
+        }).catch(error => {
             console.log(error)
         })
     }
 
 
     return (
-        <div>
-            <div className="container py-5">
-                <div className="d-flex justify-content-center">
-                    <div className="col-md col-lg-8 col-xl-6">
-                        <div className="d-flex flex-row justify-content-start">
-                            <table>
-                                <thead>
-                                    <th> Question</th>
-                                    <th className="float-end"> Answer</th>
-                                </thead>
-                                <tbody>
-                                {
-                                    messages.map(
-                                        message =>
-                                            <tr key = {message.id}>
-                                                <td className="small p-2 ms-3 mb-1 rounded-3">{message.question}</td>
-                                                <td className="small p-2 ms-3 mb-1 rounded-3">{answers.toString()}</td>
-                                            </tr>
-                                    )
-                                }
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+        <div className="disable-scroll">
+            <div className="container text-center chat-name">
+                <i>Du er i {organisationName}s chat</i>
+                <br></br><br></br>
+            </div>
+            <div className="QAfeed">
+                <div className="scroll-overflow">
+                    {
+                        messages.map(
+                            message =>
+                                <div key={message.id} className="QAMessage">
+                                    <p className="question"><b>Q:  </b>{message.question}</p>
+                                    <div className="linebreak"></div>
+                                    <p className="answer"><b>A:  </b>{message.answer}</p>
+                                </div>
+                        )
+                    }
                 </div>
             </div>
-        <div>
-                <br/> <br/>
-                <div className="container py-5">
-                    <div className="row d-flex justify-content-center">
-                        <div className="col-md col-lg-8 col-xl-6">
-                                <form>
-                                    <div className= "form-group mb-2">
-                                        <input
-                                            onKeyPress=""
-                                            id="inputQuestion"
-                                            type="text"
-                                            placeholder="Enter question"
-                                            name="question"
-                                            className="form-control"
-                                            value={question}
-                                            onChange={(q) => setQuestion(q.target.value)}
-                                        >
-                                        </input><br></br>
-                                        <button type="submit" id="sendQuestion" className="btn btn-light btn-lg btn-rounded float-end hover-shadow click"  onClick={(q) => createQAMessage(q)}>Ask Question</button>
-                                    </div>
-                                </form>
+            <div className="questionButton">
+                <div>
+                    <form>
+                        <div>
+                            <input
+                                className="input-group our-input"
+                                id="inputQuestion"
+                                type="textarea"
+                                placeholder="Enter question"
+                                name="question"
+                                value={question}
+                                onChange={(q) => setQuestion(q.target.value)}
+                            >
+                            </input><br></br>
+                            <button type="submit" className="btn-success btn" id="sendQuestion" onClick={(q) => createQAMessage(q)}>Ask Question
+                            </button>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>

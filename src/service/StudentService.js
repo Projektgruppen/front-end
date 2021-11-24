@@ -4,15 +4,12 @@ const STUDENT_BASE_REST_API_URL = 'http://localhost:8080/api/v1/students'
 
 class StudentService {
   
-    getAllApprovedQAMessages(){
-        return axios.get(STUDENT_BASE_REST_API_URL + "/getQ")
-    }
-    getAllAnswers(){
-        return axios.get(STUDENT_BASE_REST_API_URL + "/getA")
+    getAllApprovedQuestions(organisationName){
+        return axios.get(STUDENT_BASE_REST_API_URL + "/" + organisationName + "/" + "questions")
     }
 
-    createQAMessage(message){
-        return axios.post (STUDENT_BASE_REST_API_URL, message)
+    createQAMessage(organisationName, question){
+        return axios.post (STUDENT_BASE_REST_API_URL + "/" + organisationName + '/question', question)
     }
 
 }

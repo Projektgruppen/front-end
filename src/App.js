@@ -6,6 +6,7 @@ import AddQAMessageComponent from "./component/test/AddQAMessageComponent";
 import StudentComponent from "./component/StudentComponent";
 import RecruiterComponent from "./component/RecruiterComponent";
 import LogComponent from './component/LogComponent';
+import Iframetest from "./component/test/iframetest";
 function App() {
   return (
     <div>
@@ -13,7 +14,7 @@ function App() {
             <div className="container">
                 <Switch>
                     //student routes
-                    <Route path="/students" component={StudentComponent}></Route>
+                    <Route path="/students/:organisationName" component={StudentComponent}></Route>
 
                     //recruiter routes
                     <Route path="/recruiters" component={RecruiterComponent}></Route>
@@ -29,6 +30,7 @@ function App() {
                     <Route path = "/test" component= {ListQAMessageComponent}></Route>
                     <Route path = "/add-message" component= {AddQAMessageComponent}></Route>
                     <Route path="/edit-message/:id" component = {AddQAMessageComponent}></Route>
+                    <Route path="/iframe" component={Iframetest}></Route>
                     
                 </Switch>
             </div>

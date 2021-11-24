@@ -7,14 +7,9 @@ import StudentComponent from "./component/StudentComponent";
 import RecruiterComponent from "./component/RecruiterComponent";
 import LogComponent from './component/LogComponent';
 
-const Checked = () => <>🤪</>;
-const UnChecked = () => <>🙂</>
-
 function App() {
   return (
     <div>
-      <p>Toggle Button</p>
-                <ToggleButton />
         <Router>
             <div className="container">
                 <Switch>

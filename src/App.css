@@ -104,6 +104,7 @@
 }
 
 .wrg-toggle--checked .wrg-toggle-check{
+  color: blue;
   opacity: 1;
 }
 .wrg-toggle--checked .wrg-toggle-uncheck {

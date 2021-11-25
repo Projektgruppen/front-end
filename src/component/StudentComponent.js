@@ -49,7 +49,7 @@ const StudentComponent = () => {
         }, 1000)
     }
 
-    function checkIfAnswerExist(){
+    void function checkIfAnswerExist(){
 
         messages.map(
             message => {
@@ -58,8 +58,6 @@ const StudentComponent = () => {
                 }
             }
         )
-
-        document.getElementById("answer")
     }
 
     //Creates a new message

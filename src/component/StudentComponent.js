@@ -49,8 +49,7 @@ const StudentComponent = () => {
         }, 1000)
     }
 
-    void function checkIfAnswerExist(){
-
+    function checkIfAnswerExist(){
         messages.map(
             message => {
                 if(message.answer.isEmpty()){
@@ -59,6 +58,7 @@ const StudentComponent = () => {
             }
         )
     }
+
 
     //Creates a new message
     const createQAMessage = (q) => {

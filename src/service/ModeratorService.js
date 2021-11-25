@@ -4,8 +4,8 @@ const MODERATOR_BASE_REST_API_URL = 'http://localhost:8080/api/v1/moderators'
 
 class ModeratorService {
 
-    getAllUnapprovedQAMessages(){
-        return axios.get(MODERATOR_BASE_REST_API_URL)
+    getAllUnapprovedQAMessages(organisationName){
+        return axios.get(MODERATOR_BASE_REST_API_URL + '/' + organisationName + '/questions')
     }
 
     approveQAMessage(messageId){

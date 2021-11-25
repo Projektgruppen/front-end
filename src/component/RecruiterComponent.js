@@ -26,12 +26,10 @@ const RecruiterComponent = () => {
 
 
     //Update question with answer
-    const answerQAMessage = (a,id,q_id) => {
+    const answerQAMessage = (a,q_id) => {
         a.preventDefault()
 
-        const message = {id,answer}
-
-        console.log(id,q_id,message)
+        const message = {answer}
 
         RecruiterService.updateQAMessageAnswer(q_id,message).then((response) =>{
             getAllReviewedQAMessages()
@@ -65,7 +63,7 @@ const RecruiterComponent = () => {
                                             onChange={(a)=> setAnswer(a.target.value)}
                                             >
                                         </input>
-                                        <button type="submit" className="btn-success btn" id="sendAnswer" onClick={(a) => answerQAMessage(a,message.answerId,message.questionId)}>Answer question</button>
+                                        <button type="submit" className="btn-success btn" id="sendAnswer" onClick={(a) => answerQAMessage(a,message.questionId)}>Answer question</button>
                                     </form>
                                 </td>
                                 

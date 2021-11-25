@@ -20,7 +20,7 @@ function App() {
                     <Route path="/recruiters/:organisationName" component={RecruiterComponent}></Route>
 
                     //moderator routes
-                    <Route path="/moderators" component={ModeratorComponent}></Route>
+                    <Route path="/moderator/:organisationName" component={ModeratorComponent}></Route>
 
                     //log page route
                     <Route path="/logs" component={LogComponent}></Route>

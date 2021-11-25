@@ -17,7 +17,7 @@ function App() {
                     <Route path="/students/:organisationName" component={StudentComponent}></Route>
 
                     //recruiter routes
-                    <Route path="/recruiters" component={RecruiterComponent}></Route>
+                    <Route path="/recruiters/:organisationName" component={RecruiterComponent}></Route>
 
                     //moderator routes
                     <Route path="/moderators" component={ModeratorComponent}></Route>

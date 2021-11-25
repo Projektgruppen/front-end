@@ -1,14 +1,15 @@
 import React, {useState, useEffect} from "react";
-import {Link} from 'react-router-dom'
+import {Link, useParams} from 'react-router-dom'
 import RecruiterService from "../service/RecruiterService";
 
 const RecruiterComponent = () => {
 
     const [qaMessages, setQAMessages] = useState([])
     const [answer, setAnswer] = useState([]);
+    const {organisationName} = useParams();
 
     const getAllReviewedQAMessages = () => {
-        RecruiterService.getAllReviewedQAMessages().then((response) =>{
+        RecruiterService.getAllReviewedQAMessages(organisationName).then((response) =>{
             setQAMessages(response.data)
         }).catch(error => {
             console.log(error)
@@ -25,31 +26,26 @@ const RecruiterComponent = () => {
 
 
     //Update question with answer
-    const answerQAMessage = (a,id) => {
-        const answer = {a}
+    const answerQAMessage = (a,id,q_id) => {
+        a.preventDefault()
 
-        RecruiterService.updateQAMessageAnswer(id,answer).then((response) =>{
+        const message = {id,answer}
+
+        console.log(id,q_id,message)
+
+        RecruiterService.updateQAMessageAnswer(q_id,message).then((response) =>{
             getAllReviewedQAMessages()
         }).catch(error =>{
             console.log(error);
         })
     }
-    
-    function checkIfApproved(messageApproved){
-        if (messageApproved === true){
-            messageApproved = "Message Approved!"
-        }else{
-            messageApproved = "Message Denied!"
-        }
-        return messageApproved;
-    }
 
     return (
-        <div className = "container">
+        <div className = "container text-center chat-name">
             <h2 className = "text-center">Recruiter view</h2>
+            <i>Du er logget ind som {organisationName} </i>
             <table className="table table-bordered table-striped">
                 <thead>
-                <th> Id</th>
                 <th> Question</th>
                 <th> Answer</th>
                 </thead>
@@ -58,7 +54,6 @@ const RecruiterComponent = () => {
                     qaMessages.map(
                         message =>
                             <tr key = {message.id}>
-                                <td>{message.id}</td>
                                 <td>{message.question}</td>
                                 <td>
                                     <form>
@@ -67,11 +62,10 @@ const RecruiterComponent = () => {
                                             placeholder="Enter answer"
                                             name = "answer"
                                             className="form-control"
-                                            value={message.id.answer}
                                             onChange={(a)=> setAnswer(a.target.value)}
                                             >
                                         </input>
-                                        <Link className="btn btn-success" onClick={() => answerQAMessage(answer,message.id)}  to="/recruiters/"> Answer</Link>
+                                        <button type="submit" className="btn-success btn" id="sendAnswer" onClick={(a) => answerQAMessage(a,message.answerId,message.questionId)}>Answer question</button>
                                     </form>
                                 </td>
                                 

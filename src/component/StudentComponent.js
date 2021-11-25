@@ -99,8 +99,7 @@ const StudentComponent = () => {
                                 onChange={(q) => setQuestion(q.target.value)}
                             >
                             </input><br></br>
-                            <button type="submit" className="btn-success btn" id="sendQuestion" onClick={(q) => createQAMessage(q)}>Ask Question
-                            </button>
+                            <button type="submit" className="btn-success btn" id="sendQuestion" onClick={(q) => createQAMessage(q)}>Ask Question</button>
                         </div>
                     </form>
                 </div>

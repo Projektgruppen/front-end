@@ -13,6 +13,7 @@ const StudentComponent = () => {
     const getAllApprovedQAMessages = () => {
         StudentService.getAllApprovedQuestions(organisationName).then((response) => {
             setMessages(response.data)
+            checkIfAnswerExist();
         }).catch(error => {
             console.log(error);
         })
@@ -48,6 +49,18 @@ const StudentComponent = () => {
         }, 1000)
     }
 
+    function checkIfAnswerExist(){
+
+        messages.map(
+            message => {
+                if(message.answer.isEmpty()){
+                    document.getElementById("answer").className("hidden");
+                }
+            }
+        )
+
+        document.getElementById("answer")
+    }
 
     //Creates a new message
     const createQAMessage = (q) => {
@@ -79,7 +92,7 @@ const StudentComponent = () => {
                                 <div key={message.id} className="QAMessage">
                                     <p className="question"><b>Q:  </b>{message.question}</p>
                                     <div className="linebreak"></div>
-                                    <p className="answer"><b>A:  </b>{message.answer}</p>
+                                    <p id="answer" className="answer"><b>A:  </b>{message.answer}</p>
                                 </div>
                         )
                     }

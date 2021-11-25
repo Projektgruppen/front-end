@@ -28,7 +28,6 @@ const ModeratorComponent = () => {
 
     //sets the approve value of a question to true
     const approveQAMessage = (messageId) => {
-        console.log(messageId)
         ModeratorService.approveQAMessage(messageId).then((response) =>{
         getAllUnapprovedQAMessages();
         }).catch(error =>{
@@ -38,7 +37,7 @@ const ModeratorComponent = () => {
 
     //sets the review value of a question to true
     const reviewQAMessage = (messageId) => {
-        console.log(messageId)
+        document.getElementById("link").className ="link-change";
         ModeratorService.reviewQAMessage(messageId).then((response) =>{
         getAllUnapprovedQAMessages();
         }).catch(error =>{
@@ -66,7 +65,7 @@ const ModeratorComponent = () => {
                                         {
                                             qaMessages.map(
                                                 message =>
-                                                    <tr key = {message.id}>
+                                                    <tr key = {message.id} id="link">
                                                         <td>{message.question}</td>
                                                         <td>
                                                             

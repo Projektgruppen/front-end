@@ -8,8 +8,8 @@ const ModeratorComponent = () => {
     const {organisationName} = useParams();
 
     //sets shown messages to be all the unapproved questions
-    const getAllUnapprovedQAMessages = () =>{
-        ModeratorService.getAllUnapprovedQAMessages(organisationName).then((response) =>{
+    const getAllUnapprovedQAMessages = () => {
+        ModeratorService.getAllUnapprovedQAMessages(organisationName).then((response) => {
             setQAMessages(response.data)
         }).catch(error => {
             console.log(error);
@@ -28,59 +28,62 @@ const ModeratorComponent = () => {
 
     //sets the approve value of a question to true
     const approveQAMessage = (messageId) => {
-        ModeratorService.approveQAMessage(messageId).then((response) =>{
-        getAllUnapprovedQAMessages();
-        }).catch(error =>{
+        ModeratorService.approveQAMessage(messageId).then((response) => {
+            getAllUnapprovedQAMessages();
+        }).catch(error => {
             console.log(error);
         })
     }
 
     //sets the review value of a question to true
     const reviewQAMessage = (messageId) => {
-        document.getElementById("link").className ="link-change";
-        ModeratorService.reviewQAMessage(messageId).then((response) =>{
-        getAllUnapprovedQAMessages();
-        }).catch(error =>{
+        document.getElementById("link").className = "link-change";
+        ModeratorService.reviewQAMessage(messageId).then((response) => {
+            getAllUnapprovedQAMessages();
+        }).catch(error => {
             console.log(error);
         })
     }
-    
+
 
     return (
         <div>
             <br/> <br/>
-            <div className="container">
+            <div className="container-xl">
                 <div className="row">
-                    <div className="card col-md-6 offset-md-3 offset-md-3">
-                        <div className="card-body">
-                            <h2 className="text-center">{organisationName.toUpperCase()}</h2>
-                            <form>
-                                <div className= "form-group mb-2">
-                                    <table className="table table-bordered table-striped">
-                                        <thead>
-                                            <th> Question</th>
-                                            <th> Status </th>
-                                        </thead>
-                                        <tbody>
-                                        {
-                                            qaMessages.map(
-                                                message =>
-                                                    <tr key = {message.id} id="link">
-                                                        <td>{message.question}</td>
-                                                        <td>
-                                                            
-                                                        <Link  className={`btn btn-success ${message.approve ? "approved" : ""}`} onClick={() => approveQAMessage(message.questionId)} to={`/moderator/${organisationName}`} >Approve</Link>
-                                            
-                                                        
-                                                        <Link className={`btn btn-primary ${message.review ? "reviewed" : ""}`} onClick={() => reviewQAMessage(message.questionId)} to= {`/moderator/${organisationName}`}>Review</Link>
-                                                        </td>
-                                                    </tr>
-                                            )
-                                        }
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </form>
+                    <div className="">
+                        <div className="">
+                            <h2 className="text-center headline">{organisationName.toUpperCase()}</h2>
+                            <div className="form-group mb-2">
+                                {
+                                    qaMessages.map(
+                                        message =>
+                                            <div key={message.id} id="link" className="row message-box">
+                                                <div className="font-size col-md-10">
+                                                    {message.question}
+                                                </div>
+                                                <div className="col-md-2">
+                                                    <div className="row link-inline">
+                                                        <div className="col-md-6">
+                                                            <Link
+                                                                className={`btn btn-success btn-change  ${message.approve ? "approved" : ""}`}
+                                                                onClick={() => approveQAMessage(message.questionId)}
+                                                                to={`/moderator/${organisationName}`}>Approve
+                                                            </Link>
+                                                        </div>
+                                                        <div className="col-md-6">
+                                                            <Link
+                                                                className={`btn btn-primary btn-change ${message.review ? "link-change" : ""}`}
+                                                                onClick={() => reviewQAMessage(message.questionId)}
+                                                                to={`/moderator/${organisationName}`}>Review
+                                                            </Link>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    )
+                                }
+                            </div>
                         </div>
                     </div>
                 </div>

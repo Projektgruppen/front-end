@@ -9,7 +9,7 @@ const RecruiterComponent = () => {
     const {organisationName} = useParams();
 
     const getAllReviewedQAMessages = () => {
-        RecruiterService.getAllReviewedQAMessages(organisationName).then((response) =>{
+        RecruiterService.getAllReviewedQAMessages(organisationName).then((response) => {
             setQAMessages(response.data)
         }).catch(error => {
             console.log(error)
@@ -26,53 +26,55 @@ const RecruiterComponent = () => {
 
 
     //Update question with answer
-    const answerQAMessage = (a,q_id) => {
+    const answerQAMessage = (a, q_id) => {
         a.preventDefault()
 
         const message = {answer}
 
-        RecruiterService.updateQAMessageAnswer(q_id,message).then((response) =>{
+        RecruiterService.updateQAMessageAnswer(q_id, message).then((response) => {
             getAllReviewedQAMessages()
-        }).catch(error =>{
+        }).catch(error => {
             console.log(error);
         })
     }
 
     return (
-        <div className = "container text-center chat-name">
-            <h2 className = "text-center">Recruiter view</h2>
-            <i>Du er logget ind som {organisationName} </i>
-            <table className="table table-bordered table-striped">
-                <thead>
-                <th> Question</th>
-                <th> Answer</th>
-                </thead>
-                <tbody>
-                {
-                    qaMessages.map(
-                        message =>
-                            <tr key = {message.id}>
-                                <td>{message.question}</td>
-                                <td>
+        <div className="container chat-name">
+            <div className="container text-center">
+                <i>Du er logget ind som {organisationName} </i>
+            </div>
+            {
+                qaMessages.map(
+                    message =>
+                        <div className="message-box recruiter-margin">
+                            <div key={message.id}>
+                                <div className="padding-recruiter col-10">{message.question}</div>
+                                <div className="">
                                     <form>
-                                        <input
-                                            type = "text"
-                                            placeholder="Enter answer"
-                                            name = "answer"
-                                            className="form-control"
-                                            onChange={(a)=> setAnswer(a.target.value)}
-                                            >
-                                        </input>
-                                        <button type="submit" className="btn-success btn" id="sendAnswer" onClick={(a) => answerQAMessage(a,message.questionId)}>Answer question</button>
+                                        <div className="row">
+                                            <div className="col-10">
+                                                <input
+                                                    type="text"
+                                                    placeholder="Enter answer"
+                                                    name="answer"
+                                                    className="form-control"
+                                                    onChange={(a) => setAnswer(a.target.value)}
+                                                >
+                                                </input>
+                                            </div>
+                                            <div className="col-2">
+                                                <button type="submit" className="btn-success btn" id="sendAnswer"
+                                                        onClick={(a) => answerQAMessage(a, message.questionId)}>Answer
+                                                    question
+                                                </button>
+                                            </div>
+                                        </div>
                                     </form>
-                                </td>
-                                
-
-                            </tr>
-                    )
-                }
-                </tbody>
-            </table>
+                                </div>
+                            </div>
+                        </div>
+                )
+            }
         </div>
     )
 }

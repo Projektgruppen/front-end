@@ -28,6 +28,7 @@ const ModeratorComponent = () => {
 
     //sets the approve value of a question to true
     const approveQAMessage = (messageId) => {
+        console.log(messageId)
         ModeratorService.approveQAMessage(messageId).then((response) =>{
         getAllUnapprovedQAMessages();
         }).catch(error =>{
@@ -37,6 +38,7 @@ const ModeratorComponent = () => {
 
     //sets the review value of a question to true
     const reviewQAMessage = (messageId) => {
+        console.log(messageId)
         ModeratorService.reviewQAMessage(messageId).then((response) =>{
         getAllUnapprovedQAMessages();
         }).catch(error =>{
@@ -52,7 +54,7 @@ const ModeratorComponent = () => {
                 <div className="row">
                     <div className="card col-md-6 offset-md-3 offset-md-3">
                         <div className="card-body">
-                            <h2>{organisationName.toUpperCase()}</h2>
+                            <h2 className="text-center">{organisationName.toUpperCase()}</h2>
                             <form>
                                 <div className= "form-group mb-2">
                                     <table className="table table-bordered table-striped">
@@ -68,10 +70,10 @@ const ModeratorComponent = () => {
                                                         <td>{message.question}</td>
                                                         <td>
                                                             
-                                                        <Link  className={`btn btn-success ${message.approve ? "approved" : ""}`} onClick={() => approveQAMessage(message.id)} to={`/moderator/${organisationName}`} >Approve</Link>
+                                                        <Link  className={`btn btn-success ${message.approve ? "approved" : ""}`} onClick={() => approveQAMessage(message.questionId)} to={`/moderator/${organisationName}`} >Approve</Link>
                                             
                                                         
-                                                        <Link className={`btn btn-primary ${message.review ? "reviewed" : ""}`} onClick={() => reviewQAMessage(message.id)} to= {`/moderator/${organisationName}`}>Review</Link>
+                                                        <Link className={`btn btn-primary ${message.review ? "reviewed" : ""}`} onClick={() => reviewQAMessage(message.questionId)} to= {`/moderator/${organisationName}`}>Review</Link>
                                                         </td>
                                                     </tr>
                                             )

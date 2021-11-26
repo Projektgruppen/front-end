@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const STUDENT_BASE_REST_API_URL = 'http://localhost:8080/api/v1/recruiters'
+const STUDENT_BASE_REST_API_URL = 'http://localhost:8080/api/v1/recruiter'
 
 class RecruiterService {
 

@@ -14,10 +14,10 @@ function App() {
             <div className="container">
                 <Switch>
                     //student routes
-                    <Route path="/students/:organisationName" component={StudentComponent}></Route>
+                    <Route path="/student/:organisationName" component={StudentComponent}></Route>
 
                     //recruiter routes
-                    <Route path="/recruiters/:organisationName" component={RecruiterComponent}></Route>
+                    <Route path="/recruiter/:organisationName" component={RecruiterComponent}></Route>
 
                     //moderator routes
                     <Route path="/moderator/:organisationName" component={ModeratorComponent}></Route>

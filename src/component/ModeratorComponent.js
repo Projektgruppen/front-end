@@ -66,14 +66,14 @@ const ModeratorComponent = () => {
                                                     <div className="row link-inline">
                                                         <div className="col-md-6">
                                                             <Link
-                                                                className={`btn btn-success btn-change  ${message.approve ? "approved" : ""}`}
+                                                                className={`btn btn-success btn-change`}
                                                                 onClick={() => approveQAMessage(message.questionId)}
                                                                 to={`/moderator/${organisationName}`}>Approve
                                                             </Link>
                                                         </div>
                                                         <div className="col-md-6">
                                                             <Link
-                                                                className={`btn btn-primary btn-change ${message.review ? "link-change" : ""}`}
+                                                                className={`btn btn-primary btn-change`}
                                                                 onClick={() => reviewQAMessage(message.questionId)}
                                                                 to={`/moderator/${organisationName}`}>Review
                                                             </Link>

@@ -56,7 +56,7 @@ const StudentComponent = () => {
 
         StudentService.createQAMessage(organisationName, message).then((response) => {
             console.log(response.data)
-            history.push(`/students/${organisationName}`);
+            history.push(`/student/${organisationName}`);
             countDown();
         }).catch(error => {
             console.log(error)

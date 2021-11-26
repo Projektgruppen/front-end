@@ -4,13 +4,13 @@ import ModeratorService from "../service/ModeratorService";
 
 const ModeratorComponent = () => {
 
-    const [qaMessages, setQAMessages] = useState([])
+    const [qaMessages, setQaMessages] = useState([])
     const {organisationName} = useParams();
 
     //sets shown messages to be all the unapproved questions
     const getAllUnapprovedQAMessages = () => {
         ModeratorService.getAllUnapprovedQAMessages(organisationName).then((response) => {
-            setQAMessages(response.data)
+            setQaMessages(response.data)
         }).catch(error => {
             console.log(error);
         })
@@ -37,7 +37,7 @@ const ModeratorComponent = () => {
 
     //sets the review value of a question to true
     const reviewQAMessage = (messageId) => {
-        document.getElementById("link").className = "link-change";
+        document.getElementById("link").className = "link-change row message-box";
         ModeratorService.reviewQAMessage(messageId).then((response) => {
             getAllUnapprovedQAMessages();
         }).catch(error => {
@@ -58,11 +58,11 @@ const ModeratorComponent = () => {
                                 {
                                     qaMessages.map(
                                         message =>
-                                            <div key={message.id} id="link" className="row message-box">
+                                            <div key={message.id} id="link" className="row message-box" >
                                                 <div className="font-size col-md-10">
                                                     {message.question}
                                                 </div>
-                                                <div className="col-md-2">
+                                                <div className="col-md-2 ">
                                                     <div className="row link-inline">
                                                         <div className="col-md-6">
                                                             <Link
@@ -71,7 +71,7 @@ const ModeratorComponent = () => {
                                                                 to={`/moderator/${organisationName}`}>Approve
                                                             </Link>
                                                         </div>
-                                                        <div className="col-md-6">
+                                                        <div  className={`col-md-6`}>
                                                             <Link
                                                                 className={`btn btn-primary btn-change`}
                                                                 onClick={() => reviewQAMessage(message.questionId)}

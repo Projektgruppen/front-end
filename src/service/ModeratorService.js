@@ -8,13 +8,13 @@ class ModeratorService {
         return axios.get(MODERATOR_BASE_REST_API_URL + '/' + organisationName + '/questions')
     }
 
-    approveQuestion(messageId){
-        return axios.put(MODERATOR_BASE_REST_API_URL + '/approve/'+ messageId)
+    approveQuestion(questionId){
+        return axios.put(MODERATOR_BASE_REST_API_URL + '/approve/'+ questionId)
 
     }
 
-    reviewQuestion(messageId){
-        return axios.put(MODERATOR_BASE_REST_API_URL + '/review/'+ messageId)
+    reviewQuestion(questionId){
+        return axios.put(MODERATOR_BASE_REST_API_URL + '/review/'+ questionId)
 
     }
 

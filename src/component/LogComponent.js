@@ -1,35 +1,36 @@
-import React, {useEffect} from "react";
+import React, {useState, useEffect} from "react";
 import {useParams} from 'react-router-dom'
 import LogService from "../service/LogService";
 
 const LogComponent = () => {
 
     const {organisationName} = useParams();
+    const [sessions, setSessions] = useState([]);
 
-    const getAllLogs = () => {
-        LogService.getAllLogs(organisationName).then((response) => {
-            setLogs(response.data)
+    const getAllOrganisationSessions = () => {
+        LogService.getAllOrganisationSessions(organisationName).then((response) => {
+            setSessions(response.data)
         }).catch(error => {
             console.log(error)
         })
     }
 
     useEffect(() => {
-        getAllLogs();
+        getAllOrganisationSessions();
     }, [])
 
     return (
         <div className = "container">
         <i>Logs fra {organisationName} </i>
-        <div className="Log page">
+        <div className="Session page">
                 <div className="scroll-overflow">
                     {
                         sessions.map(
                             session =>
-                                <div key={log.id} className="QAlog">
-                                    <p className="question"><b>Q:  </b>{log.question}</p>
+                                <div key={session.id} className="QASessions">
+                                    <p className="question"><b>Q:  </b>{session.id}</p>
                                     <div className="linebreak"></div>
-                                    <p id="answer" className={` ${log.answer ? " " : "hidden"}`}> <b> A:  </b> {log.answer}</p>
+                                    <p id="answer" className={` ${session.id ? " " : "hidden"}`}> <b> A:  </b> {session.id}</p>
                                 </div>
                         )
                     }

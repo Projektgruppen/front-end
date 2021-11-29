@@ -8,7 +8,7 @@ class StudentService {
         return axios.get(STUDENT_BASE_REST_API_URL + "/" + organisationName + "/" + "questions")
     }
 
-    createQAMessage(organisationName, question){
+    createQuestion(organisationName, question){
         return axios.post (STUDENT_BASE_REST_API_URL + "/" + organisationName + '/question', question)
     }
 

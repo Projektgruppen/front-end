@@ -1,12 +1,10 @@
 import './App.css';
-import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom';
-import ListQAMessageComponent from './component/test/ListQAMessageComponent';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import ModeratorComponent from './component/ModeratorComponent'
-import AddQAMessageComponent from "./component/test/AddQAMessageComponent";
 import StudentComponent from "./component/StudentComponent";
 import RecruiterComponent from "./component/RecruiterComponent";
 import LogComponent from './component/LogComponent';
-import Iframetest from "./component/test/iframetest";
+import Iframe from "./component/Iframe";
 function App() {
   return (
     <div>
@@ -26,7 +24,7 @@ function App() {
                     <Route path="/logs" component={LogComponent}> </Route>
 
                     //iframe
-                    <Route path="/iframe" component={Iframetest}> </Route>
+                    <Route path="/iframe" component={Iframe}> </Route>
                     
                 </Switch>
             </div>

@@ -1,41 +1,43 @@
 import React, {useState, useEffect} from "react";
-import {Link, useParams} from 'react-router-dom'
+import {useParams} from 'react-router-dom'
 import RecruiterService from "../service/RecruiterService";
 
 const RecruiterComponent = () => {
 
-    const [qaMessages, setQAMessages] = useState([])
+    const [question, setQuestion] = useState([])
     const [answer, setAnswer] = useState([]);
     const {organisationName} = useParams();
 
 
-    const getAllReviewedQAMessages = () => {
-        RecruiterService.getAllReviewedQAMessages(organisationName).then((response) => {
-            setQAMessages(response.data)
+    //Gets all the questions that the recruiter should review.
+    const getAllReviewedQuestions = () => {
+        RecruiterService.getAllReviewedQuestions(organisationName).then((response) => {
+            setQuestion(response.data)
         }).catch(error => {
             console.log(error)
         })
     }
-    //Fetches all messages once every second.
+
+    //Fetches all questions on page load, and then every second afterwards.
     useEffect(() => {
-        getAllReviewedQAMessages();
+        getAllReviewedQuestions();
         const interval = setInterval(() => {
-            getAllReviewedQAMessages();
+            getAllReviewedQuestions();
         }, 1000);
         return () => clearInterval(interval);
     }, [])
 
 
     //Update question with answer
-    const answerQAMessage = (a, q_id) => {
+    const answerQuestion = (a, q_id) => {
         a.preventDefault()
 
         document.getElementById("answer-input").value = ""
 
-        const message = {answer}
+        const answerObj = {answer}
 
-        RecruiterService.updateQAMessageAnswer(q_id, message).then(() => {
-            getAllReviewedQAMessages()
+        RecruiterService.answerQuestion(q_id, answerObj).then(() => {
+            getAllReviewedQuestions()
         }).catch(error => {
             console.log(error);
         })
@@ -47,11 +49,11 @@ const RecruiterComponent = () => {
                 <i>Du er logget ind som {organisationName} </i>
             </div>
             {
-                qaMessages.map(
-                    message =>
+                question.map(
+                    questionMap =>
                         <div className="message-box recruiter-margin">
-                            <div key={message.id}>
-                                <div className="padding-recruiter col-10">{message.question}</div>
+                            <div key={questionMap.id}>
+                                <div className="padding-recruiter col-10">{questionMap.question}</div>
                                 <div className="">
                                     <form>
                                         <div className="row">
@@ -68,7 +70,7 @@ const RecruiterComponent = () => {
                                             </div>
                                             <div className="col-2">
                                                 <button type="submit" className="btn-success btn" id="sendAnswer"
-                                                        onClick={(a) => answerQAMessage(a, message.questionId)}>Answer
+                                                        onClick={(a) => answerQuestion(a, questionMap.questionId)}>Answer
                                                     question
                                                 </button>
                                             </div>

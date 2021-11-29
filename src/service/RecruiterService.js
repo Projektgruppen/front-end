@@ -4,11 +4,11 @@ const STUDENT_BASE_REST_API_URL = 'http://localhost:8080/api/v1/recruiter'
 
 class RecruiterService {
 
-    getAllReviewedQAMessages(organisationName){
+    getAllReviewedQuestions(organisationName){
         return axios.get(STUDENT_BASE_REST_API_URL + "/" + organisationName + "/questions")
     }
 
-    updateQAMessageAnswer(messageId, answer){
+    answerQuestion(messageId, answer){
         return axios.put(STUDENT_BASE_REST_API_URL + '/answer' + '/' + messageId, answer)
     }
 

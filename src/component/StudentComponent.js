@@ -1,28 +1,31 @@
 import React, {useState, useEffect} from "react";
-import {Link, useHistory, useParams} from 'react-router-dom'
+import {useHistory, useParams} from 'react-router-dom'
 import StudentService from "../service/StudentService";
 
 const StudentComponent = () => {
 
-    const [question, setQuestion] = useState('');
-    const [messages, setMessages] = useState([])
+    const [newQuestion, setNewQuestion] = useState('');
+    const [questions, setQuestions] = useState([])
+
     const {organisationName} = useParams();
 
     const history = useHistory();
 
-    const getAllApprovedQAMessages = () => {
+
+    //Gets all the questions that are approved.
+    const getAllApprovedQuestions = () => {
         StudentService.getAllApprovedQuestions(organisationName).then((response) => {
-            setMessages(response.data)
+            setQuestions(response.data)
         }).catch(error => {
             console.log(error);
         })
     }
 
-    //Fetches all messages once every second.
+    //Fetches all questions once every second.
     useEffect(() => {
-        getAllApprovedQAMessages();
+        getAllApprovedQuestions();
         const interval = setInterval(() => {
-            getAllApprovedQAMessages();
+            getAllApprovedQuestions();
         }, 1000);
         return () => clearInterval(interval);
     }, [])
@@ -36,14 +39,14 @@ const StudentComponent = () => {
         button.disabled = true;
 
         let coolDown = setInterval(function () {
-            setQuestion("You can now write again in: " + i + " sec");
+            setNewQuestion("You can now write again in: " + i + " sec");
             i--;
             if (i < 0) {
                 clearInterval(coolDown);
                 document.getElementById("inputQuestion").readOnly = false;
                 button.disabled = false;
 
-                return setQuestion("")
+                return setNewQuestion("")
             }
         }, 1000)
     }
@@ -51,11 +54,9 @@ const StudentComponent = () => {
     //Creates a new message
     const createQAMessage = (q) => {
         q.preventDefault();
-        const message = {question};
+        const questionObj = {newQuestion};
 
-
-        StudentService.createQAMessage(organisationName, message).then((response) => {
-            console.log(response.data)
+        StudentService.createQuestion(organisationName, questionObj).then((response) => {
             history.push(`/student/${organisationName}`);
             countDown();
         }).catch(error => {
@@ -73,12 +74,12 @@ const StudentComponent = () => {
             <div className="QAfeed">
                 <div className="scroll-overflow">
                     {
-                        messages.map(
-                            message =>
-                                <div key={message.id} className="QAMessage">
-                                    <p className="question"><b>Q:  </b>{message.question}</p>
+                        questions.map(
+                            questionMap =>
+                                <div key={questionMap.id} className="QAMessage">
+                                    <p className="question"><b>Q:  </b>{questionMap.question}</p>
                                     <div className="linebreak"></div>
-                                    <p id="answer" className={` question ${message.answer ? " " : "hidden"}`}> <b> A:  </b> {message.answer}</p>
+                                    <p id="answer" className={` question ${questionMap.answer ? " " : "hidden"}`}> <b> A:  </b> {questionMap.answer}</p>
                                 </div>
                         )
                     }
@@ -94,8 +95,8 @@ const StudentComponent = () => {
                                 type="textarea"
                                 placeholder="Enter question"
                                 name="question"
-                                value={question}
-                                onChange={(q) => setQuestion(q.target.value)}
+                                value={newQuestion}
+                                onChange={(q) => setNewQuestion(q.target.value)}
                                 maxLength="255"
                             >
                             </input><br></br>

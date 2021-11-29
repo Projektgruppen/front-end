@@ -17,7 +17,6 @@ const ModeratorComponent = () => {
     }
 
 
-
     //Runs when page refreshes and each second afterwards.
     useEffect(() => {
         getAllUnapprovedQuestions();
@@ -56,24 +55,24 @@ const ModeratorComponent = () => {
                             <div className="form-group mb-2">
                                 {
                                     question.map(
-                                        message =>
-                                            <div key={message.id} className={`${message.markedForReview ? "link-change row message-box" : "row message-box"}`}>
+                                        questionMap =>
+                                            <div key={questionMap.id} className={`${questionMap.markedForReview ? "link-change row message-box" : "row message-box"}`}>
                                                 <div className="font-size col-md-10">
-                                                    {message.question}
+                                                    {questionMap.question}
                                                 </div>
                                                 <div className="col-md-2">
                                                     <div className="row link-inline">
                                                         <div className="col-md-6">
                                                             <Link
                                                                 className="btn btn-success btn-change"
-                                                                onClick={() => approveQuestion(message.questionId)}
+                                                                onClick={() => approveQuestion(questionMap.questionId)}
                                                                 to={`/moderator/${organisationName}`}>Approve
                                                             </Link>
                                                         </div>
                                                         <div className="col-md-6">
                                                             <Link
                                                                 className="btn btn-primary btn-change"
-                                                                onClick={() => reviewQuestion(message.questionId)}
+                                                                onClick={() => reviewQuestion(questionMap.questionId)}
                                                                 to={`/moderator/${organisationName}`}>Review
                                                             </Link>
                                                         </div>

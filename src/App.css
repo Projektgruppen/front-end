@@ -24,7 +24,7 @@
   overflow: hidden !important;
 }
 .background-color{
-  background-color: #d0fcd0;
+  margin-top: 30px;
 }
 .background-color1{
   background-color: #f5f5f5;
@@ -83,15 +83,13 @@
 }
 .hidden{
   visibility: hidden;
-
-
 }
 .table-width{
   width: 100px !important;
 }
 .btn-change{
-  padding: 3px !important;
-  font-size: 15px !important;
+  padding: 2px !important;
+  font-size: 14px !important;
 }
 .review-padding{
 }
@@ -122,4 +120,7 @@
 .padding-recruiter{
   padding: 7px;
   word-wrap: break-word;
+}
+.iframe-style{
+  border: 1px solid black;
 }

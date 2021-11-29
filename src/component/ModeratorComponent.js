@@ -10,11 +10,14 @@ const ModeratorComponent = () => {
     //sets shown messages to be all the unapproved questions
     const getAllUnapprovedQAMessages = () => {
         ModeratorService.getAllUnapprovedQAMessages(organisationName).then((response) => {
+            console.log(response.data)
             setQaMessages(response.data)
         }).catch(error => {
             console.log(error);
         })
     }
+
+
 
     //runs when page refreshes but afterwards every second
     useEffect(() => {
@@ -28,7 +31,7 @@ const ModeratorComponent = () => {
 
     //sets the approve value of a question to true
     const approveQAMessage = (messageId) => {
-        ModeratorService.approveQAMessage(messageId).then((response) => {
+        ModeratorService.approveQAMessage(messageId).then(() => {
             getAllUnapprovedQAMessages();
         }).catch(error => {
             console.log(error);
@@ -37,43 +40,40 @@ const ModeratorComponent = () => {
 
     //sets the review value of a question to true
     const reviewQAMessage = (messageId) => {
-        document.getElementById("link").className = "link-change row message-box";
-        ModeratorService.reviewQAMessage(messageId).then((response) => {
-            getAllUnapprovedQAMessages();
+        ModeratorService.reviewQAMessage(messageId).then(() => {
         }).catch(error => {
             console.log(error);
         })
     }
-
 
     return (
         <div>
             <br/> <br/>
             <div className="container-xl">
                 <div className="row">
-                    <div className="">
-                        <div className="">
+                    <div>
+                        <div>
                             <h2 className="text-center headline">{organisationName.toUpperCase()}</h2>
                             <div className="form-group mb-2">
                                 {
                                     qaMessages.map(
                                         message =>
-                                            <div key={message.id} id="link" className="row message-box" >
+                                            <div key={message.id} id="link" className={`${message.markedForReview ? "link-change row message-box" : "row message-box"}`}>
                                                 <div className="font-size col-md-10">
                                                     {message.question}
                                                 </div>
-                                                <div className="col-md-2 ">
+                                                <div className="col-md-2">
                                                     <div className="row link-inline">
                                                         <div className="col-md-6">
                                                             <Link
-                                                                className={`btn btn-success btn-change`}
+                                                                className="btn btn-success btn-change"
                                                                 onClick={() => approveQAMessage(message.questionId)}
                                                                 to={`/moderator/${organisationName}`}>Approve
                                                             </Link>
                                                         </div>
-                                                        <div  className={`col-md-6`}>
+                                                        <div className="col-md-6">
                                                             <Link
-                                                                className={`btn btn-primary btn-change`}
+                                                                className="btn btn-primary btn-change"
                                                                 onClick={() => reviewQAMessage(message.questionId)}
                                                                 to={`/moderator/${organisationName}`}>Review
                                                             </Link>

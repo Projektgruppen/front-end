@@ -78,7 +78,7 @@ const StudentComponent = () => {
                                 <div key={message.id} className="QAMessage">
                                     <p className="question"><b>Q:  </b>{message.question}</p>
                                     <div className="linebreak"></div>
-                                    <p id="answer" className={` ${message.answer ? " " : "hidden"}`}> <b> A:  </b> {message.answer}</p>
+                                    <p id="answer" className={` question ${message.answer ? " " : "hidden"}`}> <b> A:  </b> {message.answer}</p>
                                 </div>
                         )
                     }

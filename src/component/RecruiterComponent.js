@@ -8,6 +8,7 @@ const RecruiterComponent = () => {
     const [answer, setAnswer] = useState([]);
     const {organisationName} = useParams();
 
+
     const getAllReviewedQAMessages = () => {
         RecruiterService.getAllReviewedQAMessages(organisationName).then((response) => {
             setQAMessages(response.data)
@@ -29,9 +30,11 @@ const RecruiterComponent = () => {
     const answerQAMessage = (a, q_id) => {
         a.preventDefault()
 
+        document.getElementById("answer-input").value = ""
+
         const message = {answer}
 
-        RecruiterService.updateQAMessageAnswer(q_id, message).then((response) => {
+        RecruiterService.updateQAMessageAnswer(q_id, message).then(() => {
             getAllReviewedQAMessages()
         }).catch(error => {
             console.log(error);
@@ -54,6 +57,7 @@ const RecruiterComponent = () => {
                                         <div className="row">
                                             <div className="col-10">
                                                 <input
+                                                    id="answer-input"
                                                     type="text"
                                                     placeholder="Enter answer"
                                                     name="answer"

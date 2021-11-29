@@ -14,23 +14,19 @@ function App() {
             <div className="container">
                 <Switch>
                     //student routes
-                    <Route path="/student/:organisationName" component={StudentComponent}></Route>
+                    <Route path="/student/:organisationName" component={StudentComponent}> </Route>
 
                     //recruiter routes
-                    <Route path="/recruiter/:organisationName" component={RecruiterComponent}></Route>
+                    <Route path="/recruiter/:organisationName" component={RecruiterComponent}> </Route>
 
                     //moderator routes
-                    <Route path="/moderator/:organisationName" component={ModeratorComponent}></Route>
+                    <Route path="/moderator/:organisationName" component={ModeratorComponent}> </Route>
 
                     //log page route
-                    <Route path="/logs" component={LogComponent}></Route>
-                    
-                    //test routes
-                    <Route exact path = "/" component= {ListQAMessageComponent}></Route>
-                    <Route path = "/test" component= {ListQAMessageComponent}></Route>
-                    <Route path = "/add-message" component= {AddQAMessageComponent}></Route>
-                    <Route path="/edit-message/:id" component = {AddQAMessageComponent}></Route>
-                    <Route path="/iframe" component={Iframetest}></Route>
+                    <Route path="/logs" component={LogComponent}> </Route>
+
+                    //iframe
+                    <Route path="/iframe" component={Iframetest}> </Route>
                     
                 </Switch>
             </div>

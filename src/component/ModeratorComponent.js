@@ -4,14 +4,13 @@ import ModeratorService from "../service/ModeratorService";
 
 const ModeratorComponent = () => {
 
-    const [qaMessages, setQaMessages] = useState([])
+    const [question, setQuestion] = useState([])
     const {organisationName} = useParams();
 
-    //sets shown messages to be all the unapproved questions
-    const getAllUnapprovedQAMessages = () => {
-        ModeratorService.getAllUnapprovedQAMessages(organisationName).then((response) => {
-            console.log(response.data)
-            setQaMessages(response.data)
+    //Fetches all unapproved questions.
+    const getAllUnapprovedQuestions = () => {
+        ModeratorService.getAllUnapprovedQuestions(organisationName).then((response) => {
+            setQuestion(response.data)
         }).catch(error => {
             console.log(error);
         })
@@ -19,28 +18,28 @@ const ModeratorComponent = () => {
 
 
 
-    //runs when page refreshes but afterwards every second
+    //Runs when page refreshes and each second afterwards.
     useEffect(() => {
-        getAllUnapprovedQAMessages();
+        getAllUnapprovedQuestions();
         const interval = setInterval(() => {
-            getAllUnapprovedQAMessages();
+            getAllUnapprovedQuestions();
         }, 1000);
         return () => clearInterval(interval);
     }, [])
 
 
-    //sets the approve value of a question to true
-    const approveQAMessage = (messageId) => {
-        ModeratorService.approveQAMessage(messageId).then(() => {
-            getAllUnapprovedQAMessages();
+    //Approves a question.
+    const approveQuestion = (messageId) => {
+        ModeratorService.approveQuestion(messageId).then(() => {
+            getAllUnapprovedQuestions();
         }).catch(error => {
             console.log(error);
         })
     }
 
-    //sets the review value of a question to true
-    const reviewQAMessage = (messageId) => {
-        ModeratorService.reviewQAMessage(messageId).then(() => {
+    //Sends a question to the recruiter for review.
+    const reviewQuestion = (messageId) => {
+        ModeratorService.reviewQuestion(messageId).then(() => {
         }).catch(error => {
             console.log(error);
         })
@@ -56,9 +55,9 @@ const ModeratorComponent = () => {
                             <h2 className="text-center headline">{organisationName.toUpperCase()}</h2>
                             <div className="form-group mb-2">
                                 {
-                                    qaMessages.map(
+                                    question.map(
                                         message =>
-                                            <div key={message.id} id="link" className={`${message.markedForReview ? "link-change row message-box" : "row message-box"}`}>
+                                            <div key={message.id} className={`${message.markedForReview ? "link-change row message-box" : "row message-box"}`}>
                                                 <div className="font-size col-md-10">
                                                     {message.question}
                                                 </div>
@@ -67,14 +66,14 @@ const ModeratorComponent = () => {
                                                         <div className="col-md-6">
                                                             <Link
                                                                 className="btn btn-success btn-change"
-                                                                onClick={() => approveQAMessage(message.questionId)}
+                                                                onClick={() => approveQuestion(message.questionId)}
                                                                 to={`/moderator/${organisationName}`}>Approve
                                                             </Link>
                                                         </div>
                                                         <div className="col-md-6">
                                                             <Link
                                                                 className="btn btn-primary btn-change"
-                                                                onClick={() => reviewQAMessage(message.questionId)}
+                                                                onClick={() => reviewQuestion(message.questionId)}
                                                                 to={`/moderator/${organisationName}`}>Review
                                                             </Link>
                                                         </div>

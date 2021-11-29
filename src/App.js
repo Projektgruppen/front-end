@@ -23,7 +23,7 @@ function App() {
                     <Route path="/moderator/:organisationName" component={ModeratorComponent}></Route>
 
                     //log page route
-                    <Route path="/logs" component={LogComponent}></Route>
+                    <Route path="/logs/:organisationName" component={LogComponent}></Route>
                     
                     //test routes
                     <Route exact path = "/" component= {ListQAMessageComponent}></Route>

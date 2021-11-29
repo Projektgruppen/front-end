@@ -28,7 +28,7 @@ const LogComponent = () => {
                         sessions.map(
                             session =>
                                 <div key={session.id} className="QASessions">
-                                    <p className="question"><b>Q:  </b>{session.id}</p>
+                                    <p className="question"><b>Session </b>{session.id}</p>
                                     <div className="linebreak"></div>
                                     <p id="answer" className={` ${session.id ? " " : "hidden"}`}> <b> A:  </b> {session.id}</p>
                                 </div>

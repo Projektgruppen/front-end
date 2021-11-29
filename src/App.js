@@ -12,20 +12,19 @@ function App() {
             <div className="container">
                 <Switch>
                     //student routes
-                    <Route path="/student/:organisationName" component={StudentComponent}> </Route>
+                    <Route  path="/student/:organisationName" component={StudentComponent}></Route>
 
                     //recruiter routes
-                    <Route path="/recruiter/:organisationName" component={RecruiterComponent}> </Route>
+                    <Route path="/recruiter/:organisationName" component={RecruiterComponent}></Route>
 
                     //moderator routes
-                    <Route path="/moderator/:organisationName" component={ModeratorComponent}> </Route>
+                    <Route path="/moderator/:organisationName" component={ModeratorComponent}></Route>
 
                     //log page route
-                    <Route path="/logs" component={LogComponent}> </Route>
+                    <Route path="/logs" component={LogComponent}></Route>
 
                     //iframe
-                    <Route path="/iframe" component={Iframe}> </Route>
-                    
+                    <Route path="/iframe" component={Iframe}></Route>
                 </Switch>
             </div>
         </Router>

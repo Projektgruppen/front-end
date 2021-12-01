@@ -9,7 +9,8 @@ class StudentService {
     }
 
     createQuestion(organisationName, question){
-        return axios.post (STUDENT_BASE_REST_API_URL + "/" + organisationName + '/question', question)
+        console.log(question);
+        return axios.post (STUDENT_BASE_REST_API_URL + "/" + organisationName + "/question", question)
     }
 
 }

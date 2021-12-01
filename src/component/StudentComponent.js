@@ -4,7 +4,7 @@ import StudentService from "../service/StudentService";
 
 const StudentComponent = () => {
 
-    const [newQuestion, setNewQuestion] = useState('');
+    const [question, setQuestion] = useState('');
     const [questions, setQuestions] = useState([])
 
     const {organisationName} = useParams();
@@ -39,14 +39,14 @@ const StudentComponent = () => {
         button.disabled = true;
 
         let coolDown = setInterval(function () {
-            setNewQuestion("You can now write again in: " + i + " sec");
+            setQuestion("You can now write again in: " + i + " sec");
             i--;
             if (i < 0) {
                 clearInterval(coolDown);
                 document.getElementById("inputQuestion").readOnly = false;
                 button.disabled = false;
 
-                return setNewQuestion("")
+                return setQuestion("")
             }
         }, 1000)
     }
@@ -54,7 +54,7 @@ const StudentComponent = () => {
     //Creates a new message
     const createQAMessage = (q) => {
         q.preventDefault();
-        const questionObj = {newQuestion};
+        const questionObj = {question};
 
         StudentService.createQuestion(organisationName, questionObj).then((response) => {
             history.push(`/student/${organisationName}`);
@@ -95,8 +95,8 @@ const StudentComponent = () => {
                                 type="textarea"
                                 placeholder="Enter question"
                                 name="question"
-                                value={newQuestion}
-                                onChange={(q) => setNewQuestion(q.target.value)}
+                                value={question}
+                                onChange={(q) => setQuestion(q.target.value)}
                                 maxLength="255"
                             >
                             </input><br></br>

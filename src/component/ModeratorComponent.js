@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from "react";
 import {Link, useParams} from 'react-router-dom'
 import ModeratorService from "../service/ModeratorService";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import ReactTooltip from 'react-tooltip';
 
 const ModeratorComponent = () => {
 
@@ -52,6 +54,9 @@ const ModeratorComponent = () => {
                     <div>
                         <div>
                             <h2 className="text-center headline">{organisationName.toUpperCase()}</h2>
+                            <p ref={ref => this.fooRef = ref} data-tip='tooltip'></p>
+<button onClick={() => { ReactTooltip.hide(this.fooRef) }}></button>
+<ReactTooltip />
                             <div className="form-group mb-2">
                                 {
                                     question.map(
@@ -62,19 +67,23 @@ const ModeratorComponent = () => {
                                                 </div>
                                                 <div className="col-md-2">
                                                     <div className="row link-inline">
-                                                        <div className="col-md-6">
+                                                        <div>
+                                                            
                                                             <Link
-                                                                className="btn btn-success btn-change"
-                                                                onClick={() => approveQuestion(questionMap.questionId)}
-                                                                to={`/moderator/${organisationName}`}>Approve
-                                                            </Link>
-                                                        </div>
-                                                        <div className="col-md-6">
-                                                            <Link
-                                                                className="btn btn-primary btn-change"
+                                                                className="btn btn-primary btn-change ourbutton"
                                                                 onClick={() => reviewQuestion(questionMap.questionId)}
-                                                                to={`/moderator/${organisationName}`}>Review
+                                                                to={`/moderator/${organisationName}`}
+                                                                >
+                                                                <a><FontAwesomeIcon icon="user-check"/></a>
                                                             </Link>
+                                                            
+                                                            <Link
+                                                                className="btn btn-success btn-change ourbutton"
+                                                                onClick={() => approveQuestion(questionMap.questionId)}
+                                                                to={`/moderator/${organisationName}`}>
+                                                                <a><FontAwesomeIcon icon="check"/></a>
+                                                            </Link>
+                                                            
                                                         </div>
                                                     </div>
                                                 </div>

@@ -5,6 +5,10 @@ import StudentComponent from "./component/StudentComponent";
 import RecruiterComponent from "./component/RecruiterComponent";
 import LogComponent from './component/LogComponent';
 import Iframe from "./component/Iframe";
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faCheck, fas, faUserCheck } from '@fortawesome/free-solid-svg-icons';
+
+library.add(faCheck, fas, faUserCheck)
 function App() {
   return (
     <div>

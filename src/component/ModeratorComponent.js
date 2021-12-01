@@ -54,9 +54,6 @@ const ModeratorComponent = () => {
                     <div>
                         <div>
                             <h2 className="text-center headline">{organisationName.toUpperCase()}</h2>
-                            <p ref={ref => this.fooRef = ref} data-tip='tooltip'></p>
-<button onClick={() => { ReactTooltip.hide(this.fooRef) }}></button>
-<ReactTooltip />
                             <div className="form-group mb-2">
                                 {
                                     question.map(

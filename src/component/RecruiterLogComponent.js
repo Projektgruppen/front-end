@@ -40,15 +40,12 @@ const RecruiterLogComponent = () => {
                                     <th>Session id</th>
                                     <th>Time created</th>
                                     <th>Download log</th>
-                                    <th>Antal beskeder</th>
                                     </thead>
                                     <tbody>
                                     <td>{sessionMap.sessionId}</td>
                                     <td>{sessionMap.timeOfCreation}</td>
                                     <td> <a href={`http://localhost:8080/api/v1/logs/${sessionMap.sessionId}/download`} rel="nofollow"> Download </a> </td>
-                                    <td>{}</td>
                                     </tbody>
-
                                 </table>
                         )
                     }

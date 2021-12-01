@@ -16,7 +16,7 @@ function Iframe() {
                                 title="Inline Frame Example"
                                 width="100%"
                                 height="100%"
-                                src="http://localhost:3000/students/forsvaret">
+                                src="http://localhost:3000/student/forsvaret">
                         </iframe>
 
                     </div>

@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import {useParams} from 'react-router-dom'
+import {Link, useParams} from 'react-router-dom'
 import RecruiterService from "../service/RecruiterService";
 
 const RecruiterComponent = () => {
@@ -13,6 +13,7 @@ const RecruiterComponent = () => {
     const getAllReviewedQuestions = () => {
         RecruiterService.getAllReviewedQuestions(organisationName).then((response) => {
             setQuestion(response.data)
+            console.log(response.data)
         }).catch(error => {
             console.log(error)
         })
@@ -47,6 +48,9 @@ const RecruiterComponent = () => {
         <div className="container chat-name">
             <div className="container text-center">
                 <i>Du er logget ind som {organisationName} </i>
+                <div>
+                    <Link to={`/${organisationName}/logs`}>{organisationName} gemte Logs</Link>
+                </div>
             </div>
             {
                 question.map(

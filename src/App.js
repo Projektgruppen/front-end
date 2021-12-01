@@ -5,6 +5,7 @@ import StudentComponent from "./component/StudentComponent";
 import RecruiterComponent from "./component/RecruiterComponent";
 import LogComponent from './component/LogComponent';
 import Iframe from "./component/Iframe";
+import RecruiterLogComponent from "./component/RecruiterLogComponent";
 function App() {
   return (
     <div>
@@ -16,15 +17,18 @@ function App() {
 
                     //recruiter routes
                     <Route path="/recruiter/:organisationName" component={RecruiterComponent}></Route>
+                    <Route path="/:organisationName/logs" component={RecruiterLogComponent}></Route>
 
                     //moderator routes
                     <Route path="/moderator/:organisationName" component={ModeratorComponent}></Route>
 
                     //log page route
-                    <Route path="/logs" component={LogComponent}></Route>
+                    {/*<Route path="/logs/:sessionId" component={LogComponent}></Route>*/}
 
                     //iframe
                     <Route path="/iframe" component={Iframe}></Route>
+
+
                 </Switch>
             </div>
         </Router>

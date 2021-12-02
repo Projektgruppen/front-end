@@ -9,6 +9,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { faCheck, fas, faUserCheck } from '@fortawesome/free-solid-svg-icons';
 
 library.add(faCheck, fas, faUserCheck)
+import RecruiterLogComponent from "./component/RecruiterLogComponent";
 function App() {
   return (
     <div>
@@ -20,15 +21,18 @@ function App() {
 
                     //recruiter routes
                     <Route path="/recruiter/:organisationName" component={RecruiterComponent}></Route>
+                    <Route path="/:organisationName/logs" component={RecruiterLogComponent}></Route>
 
                     //moderator routes
                     <Route path="/moderator/:organisationName" component={ModeratorComponent}></Route>
 
                     //log page route
-                    <Route path="/logs" component={LogComponent}></Route>
+                    {/*<Route path="/logs/:sessionId" component={LogComponent}></Route>*/}
 
                     //iframe
                     <Route path="/iframe" component={Iframe}></Route>
+
+
                 </Switch>
             </div>
         </Router>

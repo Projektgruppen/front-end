@@ -30,6 +30,10 @@ class ModeratorService {
         return axios.post(MODERATOR_BASE_REST_API_URL + "/"+ organisationName + "/newsession")
     }
 
+    newOrganisationSessionForAll(){
+        return axios.post(MODERATOR_BASE_REST_API_URL + "/newsessionforall")
+    }
+
 }
 
 export default new ModeratorService();

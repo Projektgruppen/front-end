@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const ModeratorHomeComponent = () => {
     const [organisations, setOrganisation] = useState([])
-    
+
 
     {/*Fetches all organisations*/ }
     const getAllOrganisations = () => {
@@ -39,6 +39,15 @@ const ModeratorHomeComponent = () => {
         })
     }
 
+    //new session for all
+    const newSessionForAll = () => {
+        ModeratorService.newOrganisationSessionForAll().then(() => {
+            getAllOrganisations();
+        }).catch(error => {
+            console.log(error);
+        })
+    }
+
     return (
         <div>
             <header>
@@ -51,7 +60,23 @@ const ModeratorHomeComponent = () => {
                     </Container>
                 </Navbar>
             </header>
-            <div className="container">
+            <div className="container col">
+                <div className="d-flex justify-content-center mt-1">
+                    <p>Settings</p>
+                </div>
+                <div className="d-flex justify-content-center">
+                    <Link
+                        className="btn btn-success btn-change p-2"
+                        onClick={() => newSessionForAll()}
+                        to={"/home/moderator"}>
+                        <a>New session for all</a>
+                    </Link>
+                </div>
+                <hr/>
+
+            </div>
+            <div className="container col">
+
                 <div className="d-flex justify-content-center mt-3">
                     <h2>Organisations</h2>
                 </div>
@@ -68,13 +93,16 @@ const ModeratorHomeComponent = () => {
                                                 <p>Current session id: {organisationMap.currentSession}</p>
                                             </Card.Text>
                                         </div>
-                                        <Link
-                                            className="btn btn-success btn-change ourbutton"
+                                        <div className="d-flex justify-content-center mb-1">
+                                            <Link
+                                            className="btn btn-success btn-change p-2"
                                             onClick={() => newSession(organisationMap.name)}
                                             to={"/home/moderator"}>
-                                            <a><FontAwesomeIcon icon="check" /></a>
+                                            <a>New Session</a>
                                         </Link>
+                                        </div>
                                         
+
                                         <div className="d-flex justify-content-center">
                                             <a className="btn btn-primary" href={`/moderator/${organisationMap.name}`}>Moderator</a>
                                         </div>

@@ -45,7 +45,7 @@ const RecruiterLogComponent = () => {
 
 
     return (
-        <div>
+        <div className="container">
             <div>
                 <div>
                     <img id="img-org" className="image-resize float-right1" src={orgImage}></img>

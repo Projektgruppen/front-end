@@ -10,9 +10,10 @@ import Iframe from "./component/Iframe";
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faCheck, fas, faUserCheck } from '@fortawesome/free-solid-svg-icons';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import RecruiterLogComponent from "./component/RecruiterLogComponent";
 
 library.add(faCheck, fas, faUserCheck)
-import RecruiterLogComponent from "./component/RecruiterLogComponent";
+
 function App() {
   return (
     <div>
@@ -31,9 +32,9 @@ function App() {
                     <Route path="/new/organisation/moderator/" component={ModeratorNewOrganisationComponent}></Route>
 
                     {/*log page routes*/}
-                    <Route path="/logs" component={LogComponent}></Route>
+                   
                     //log page route
-                    {/*<Route path="/logs/:sessionId" component={LogComponent}></Route>*/}
+                    <Route path="/:organisationName/logs" component={RecruiterLogComponent}></Route>
 
                     {/*ifram routes*/}
                     <Route path="/iframe" component={Iframe}></Route>

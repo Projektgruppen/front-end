@@ -34,6 +34,10 @@ class ModeratorService {
         return axios.post(MODERATOR_BASE_REST_API_URL + "/newsessionforall")
     }
 
+    autoReview(organisationName, state){
+        return axios.put(MODERATOR_BASE_REST_API_URL + "/" + organisationName + "/autoreview/" + state)
+    }
+
 }
 
 export default new ModeratorService();

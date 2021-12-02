@@ -3,15 +3,14 @@ import { Navbar } from "react-bootstrap";
 import { Nav } from "react-bootstrap";
 import { Container } from "react-bootstrap";
 import { Card } from "react-bootstrap";
-import { Button } from "react-bootstrap";
 import ModeratorService from "../service/ModeratorService";
-import { withRouter } from 'react-router-dom';
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
 const ModeratorHomeComponent = () => {
-    const [organisation, setQuestion] = useState('');
     const [organisations, setOrganisation] = useState([])
+    
 
     {/*Fetches all organisations*/ }
     const getAllOrganisations = () => {
@@ -30,6 +29,15 @@ const ModeratorHomeComponent = () => {
         }, 1000);
         return () => clearInterval(interval);
     }, [])
+
+    //new session
+    const newSession = (organisationName) => {
+        ModeratorService.newOrganisationSession(organisationName).then(() => {
+            getAllOrganisations();
+        }).catch(error => {
+            console.log(error);
+        })
+    }
 
     return (
         <div>
@@ -60,6 +68,13 @@ const ModeratorHomeComponent = () => {
                                                 <p>Current session id: {organisationMap.currentSession}</p>
                                             </Card.Text>
                                         </div>
+                                        <Link
+                                            className="btn btn-success btn-change ourbutton"
+                                            onClick={() => newSession(organisationMap.name)}
+                                            to={"/home/moderator"}>
+                                            <a><FontAwesomeIcon icon="check" /></a>
+                                        </Link>
+                                        
                                         <div className="d-flex justify-content-center">
                                             <a className="btn btn-primary" href={`/moderator/${organisationMap.name}`}>Moderator</a>
                                         </div>

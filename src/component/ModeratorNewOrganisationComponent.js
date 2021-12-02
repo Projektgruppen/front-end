@@ -3,9 +3,13 @@ import { Navbar } from "react-bootstrap";
 import { Nav } from "react-bootstrap";
 import { Container } from "react-bootstrap";
 import ModeratorService from "../service/ModeratorService";
+import { useHistory } from 'react-router-dom';
 
 const ModeratorNewOrganisationComponent = () => {
     const [name, setOrganisation] = useState('');
+    const history = useHistory();
+
+
 
     
     //Creates a new message
@@ -14,9 +18,10 @@ const ModeratorNewOrganisationComponent = () => {
         const organisationObj = {name};
 
         ModeratorService.createOrganisation(organisationObj).then((response) => {
-            
+        history.push("/home/moderator");
         }).catch(error => {
             console.log(error)
+            history.push("/home/moderator");
         })
     }
 

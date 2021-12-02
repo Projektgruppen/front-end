@@ -48,6 +48,15 @@ const ModeratorHomeComponent = () => {
         })
     }
 
+       //new session for all
+       const autoReview = (organisationName, state) => {
+        ModeratorService.autoReview(organisationName, state).then(() => {
+            getAllOrganisations();
+        }).catch(error => {
+            console.log(error);
+        })
+    }
+
     return (
         <div>
             <header>
@@ -64,15 +73,20 @@ const ModeratorHomeComponent = () => {
                 <div className="d-flex justify-content-center mt-1">
                     <p>Global Settings</p>
                 </div>
-                <div className="d-flex justify-content-center">
-                    <Link
-                        className="btn btn-success btn-change p-2"
-                        onClick={() => newSessionForAll()}
-                        to={"/home/moderator"}>
-                        <a>New session for all</a>
-                    </Link>
+                <div className="row">
+                    <div className="d-flex justify-content-center col-sm">
+                        <Link
+                            className="btn btn-success btn-change p-2"
+                            onClick={() => newSessionForAll()}
+                            to={"/home/moderator"}>
+                            <a>New session for all</a>
+                        </Link>
+                    </div>
+                
                 </div>
-                <hr/>
+
+
+                <hr />
 
             </div>
             <div className="container col">
@@ -88,20 +102,36 @@ const ModeratorHomeComponent = () => {
                                     <Card.Img variant="top" />
                                     <Card.Body>
                                         <Card.Title><p className="text-capitalize text-center">{organisationMap.name}</p></Card.Title>
-                                        <div className="d-flex justify-content-center">
+                                        <div className="d-flex justify-content-center p-2">
                                             <Card.Text>
-                                                <p>Current session id: {organisationMap.currentSession}</p>
+                                                <p className="mb-0 myspacing-right">Current id: {organisationMap.currentSession}</p>
                                             </Card.Text>
-                                        </div>
-                                        <div className="d-flex justify-content-center mb-1">
                                             <Link
-                                            className="btn btn-success btn-change p-2"
-                                            onClick={() => newSession(organisationMap.name)}
-                                            to={"/home/moderator"}>
-                                            <a>New Session</a>
-                                        </Link>
+                                                className="btn btn-info btn-change "
+                                                onClick={() => newSession(organisationMap.name)}
+                                                to={"/home/moderator"}>
+                                                <a>New</a>
+                                            </Link>
                                         </div>
-                                        
+                                    
+                                        <div className="d-flex justify-content-center mb-1 p-2">
+                                            <p className="mb-0 myspacing-right ">Autoreview:</p>
+                                            <Link
+                                                className="btn btn-success btn-change myspacing-right{
+                                                    "
+                                                onClick={() => autoReview( organisationMap.name, "true")}
+                                                to={"/home/moderator"}>
+                                                <a> on</a>
+                                            </Link>
+                                            <Link
+                                                className="btn btn-danger btn-change"
+                                                onClick={() => autoReview(organisationMap.name, "false")}
+                                                to={"/home/moderator"}>
+                                                <a>off</a>
+                                            </Link>
+                                        </div>
+                                    
+
 
                                         <div className="d-flex justify-content-center">
                                             <a className="btn btn-primary" href={`/moderator/${organisationMap.name}`}>Moderator</a>

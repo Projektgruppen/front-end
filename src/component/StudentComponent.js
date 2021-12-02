@@ -77,9 +77,13 @@ const StudentComponent = () => {
                         questions.map(
                             questionMap =>
                                 <div key={questionMap.id} className="QAMessage">
-                                    <p className="question"><b>Q:  </b>{questionMap.question}</p>
+                                    <p className="question"><b>Q:  </b>{questionMap.question}
+                                        <span className= "timestamp">{questionMap.timeOfCreationForQuestion}</span>
+                                    </p>
                                     <div className="linebreak"></div>
-                                    <p id="answer" className={` question ${questionMap.answer ? " " : "hidden"}`}> <b> A:  </b> {questionMap.answer}</p>
+                                    <p id="answer" className={` question ${questionMap.answer ? " " : "hidden"}`}> <b> A:  </b> {questionMap.answer}
+                                        <span className= "timestamp">{questionMap.timeOfCreationForAnswer}</span>
+                                    </p>
                                 </div>
                         )
                     }

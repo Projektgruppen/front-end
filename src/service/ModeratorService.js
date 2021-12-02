@@ -22,6 +22,10 @@ class ModeratorService {
         return axios.get(MODERATOR_BASE_REST_API_URL + '/organisations')
     }
 
+    createOrganisation(organisationObj){
+        return axios.post(MODERATOR_BASE_REST_API_URL + "/neworganisation", organisationObj)
+    }
+
 }
 
 export default new ModeratorService();

@@ -5,13 +5,13 @@ import { Container } from "react-bootstrap";
 import { Card } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import ModeratorService from "../service/ModeratorService";
-import {withRouter} from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { Link } from "react-router-dom";
 
 
 const ModeratorHomeComponent = () => {
-
-    const [orginisation, setOrganisation] = useState([])
+    const [organisation, setQuestion] = useState('');
+    const [organisations, setOrganisation] = useState([])
 
     {/*Fetches all organisations*/ }
     const getAllOrganisations = () => {
@@ -31,23 +31,24 @@ const ModeratorHomeComponent = () => {
         return () => clearInterval(interval);
     }, [])
 
-    
-
     return (
         <div>
             <header>
                 <Navbar bg="primary" variant="dark">
                     <Container>
-                        <Navbar.Brand href=" ">Moderator</Navbar.Brand>
+                        <Navbar.Brand href="/home/moderator/">Home</Navbar.Brand>
                         <Nav className="me-auto">
-                            {/*<Nav.Link href="#home">Home</Nav.Link>*/}
+                            <Nav.Link href="/new/organisation/moderator/">Create organisation</Nav.Link>
                         </Nav>
                     </Container>
                 </Navbar>
             </header>
             <div className="container">
+                <div className="d-flex justify-content-center mt-3">
+                    <h2>Organisations</h2>
+                </div>
                 <div className="row">
-                    {orginisation.map(
+                    {organisations.map(
                         organisationMap =>
                             <div class="col-sm-3 mt-3" key={organisationMap.id}>
                                 <Card>
@@ -60,18 +61,15 @@ const ModeratorHomeComponent = () => {
                                             </Card.Text>
                                         </div>
                                         <div className="d-flex justify-content-center">
-                                            <a className="btn btn-primary" href={ `/moderator/${organisationMap.name}` }>Moderator</a>
+                                            <a className="btn btn-primary" href={`/moderator/${organisationMap.name}`}>Moderator</a>
                                         </div>
-
                                     </Card.Body>
                                 </Card>
                             </div>
                     )}
                 </div>
-
-
+                <hr />
             </div>
-
         </div>
     )
 }

@@ -15,3 +15,17 @@ code {
 .myspacing-right{
   margin-right: 10px;
 }
+
+.hover:hover {
+  border-color: rgb(156, 210, 255) !important;
+}
+
+.on:hover{
+  background-color: green !important;
+  border-color: green !important;
+}
+
+.off:hover{
+  background-color: red !important;
+  border-color: red !important;
+}

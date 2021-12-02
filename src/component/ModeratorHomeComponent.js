@@ -107,34 +107,35 @@ const ModeratorHomeComponent = () => {
                                                 <p className="mb-0 myspacing-right">Current id: {organisationMap.currentSession}</p>
                                             </Card.Text>
                                             <Link
-                                                className="btn btn-info btn-change "
+                                                className="btn btn-light hover newssionbutton"
                                                 onClick={() => newSession(organisationMap.name)}
                                                 to={"/home/moderator"}>
-                                                <a>New</a>
+                                                <a>NEW</a>
                                             </Link>
                                         </div>
                                     
                                         <div className="d-flex justify-content-center mb-1 p-2">
                                             <p className="mb-0 myspacing-right ">Autoreview:</p>
                                             <Link
-                                                className="btn btn-success btn-change myspacing-right{
-                                                    "
+                                                className="btn btn-light hover on myspacing-right"
                                                 onClick={() => autoReview( organisationMap.name, "true")}
                                                 to={"/home/moderator"}>
-                                                <a> on</a>
+                                                <a> ON</a>
                                             </Link>
                                             <Link
-                                                className="btn btn-danger btn-change"
+                                                className="btn btn-light off hover"
                                                 onClick={() => autoReview(organisationMap.name, "false")}
                                                 to={"/home/moderator"}>
-                                                <a>off</a>
+                                                <a>OFF</a>
                                             </Link>
                                         </div>
                                     
 
 
-                                        <div className="d-flex justify-content-center">
-                                            <a className="btn btn-primary" href={`/moderator/${organisationMap.name}`}>Moderator</a>
+                                        <div className="row">
+                                            <a className="btn btn-light m-1 hover" href={`/moderator/${organisationMap.name}`} target="_blank">Moderator</a>
+                                            <a className="btn btn-light m-1 hover" href={`/recruiter/${organisationMap.name}`} target="_blank">Recruiter</a>
+                                            <a className="btn btn-light m-1 hover" href={`/student/${organisationMap.name}`} target="_blank">Student</a>
                                         </div>
                                     </Card.Body>
                                 </Card>

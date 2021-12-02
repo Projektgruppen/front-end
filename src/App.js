@@ -1,37 +1,41 @@
 import './App.css';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import ModeratorComponent from './component/ModeratorComponent'
+import ModeratorHomeComponent from './component/ModeratorHomeComponent';
 import StudentComponent from "./component/StudentComponent";
 import RecruiterComponent from "./component/RecruiterComponent";
 import LogComponent from './component/LogComponent';
 import Iframe from "./component/Iframe";
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faCheck, fas, faUserCheck } from '@fortawesome/free-solid-svg-icons';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 library.add(faCheck, fas, faUserCheck)
 function App() {
   return (
     <div>
         <Router>
-            <div className="container">
+            <div>
                 <Switch>
-                    //student routes
+                    {/*student routes*/}
                     <Route  path="/student/:organisationName" component={StudentComponent}></Route>
 
-                    //recruiter routes
+                    {/*recruiter routes*/}
                     <Route path="/recruiter/:organisationName" component={RecruiterComponent}></Route>
 
-                    //moderator routes
+                    {/*moderator routes*/}
                     <Route path="/moderator/:organisationName" component={ModeratorComponent}></Route>
+                    <Route path="/home/moderator/" component={ModeratorHomeComponent}></Route>
 
-                    //log page route
+                    {/*log page routes*/}
                     <Route path="/logs" component={LogComponent}></Route>
 
-                    //iframe
+                    {/*ifram routes*/}
                     <Route path="/iframe" component={Iframe}></Route>
                 </Switch>
             </div>
         </Router>
+        
     </div>
   );
 }

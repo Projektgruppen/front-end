@@ -18,6 +18,10 @@ class ModeratorService {
 
     }
 
+    getAllOrganisations(){
+        return axios.get(MODERATOR_BASE_REST_API_URL + '/organisations')
+    }
+
 }
 
 export default new ModeratorService();

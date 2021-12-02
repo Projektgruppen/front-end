@@ -7,17 +7,41 @@ const RecruiterComponent = () => {
     const [question, setQuestion] = useState([])
     const [answer, setAnswer] = useState([]);
     const {organisationName} = useParams();
+    let orgImage;
 
 
     //Gets all the questions that the recruiter should review.
     const getAllReviewedQuestions = () => {
         RecruiterService.getAllReviewedQuestions(organisationName).then((response) => {
             setQuestion(response.data)
+            if (response.data.length === 0) {
+                document.getElementById("empty_string").innerHTML = "Vent venligst på indkommende spørgsmål"
+                document.getElementById("empty_string").className = "loading center-loading"
+            } else {
+                document.getElementById("empty_string").innerHTML = ""
+                document.getElementById("empty_string").className = ""
+            }
             console.log(response.data)
         }).catch(error => {
             console.log(error)
         })
     }
+    const loadOrgLogo = () => {
+
+        switch (organisationName) {
+            case "politiet":
+                orgImage = "http://pingvinnyt.dk/wp-content/uploads/2019/07/POLITI-rigspoliet899.jpg"
+                break;
+            case "forsvaret":
+                orgImage = "http://www.forsvaret.tv/images/forsvaret.png"
+                break;
+            default:
+                orgImage = ""
+
+        }
+    }
+
+    loadOrgLogo();
 
     //Fetches all questions on page load, and then every second afterwards.
     useEffect(() => {
@@ -47,44 +71,49 @@ const RecruiterComponent = () => {
     return (
         <div className="container chat-name">
             <div className="container text-center">
-                <i>Du er logget ind som {organisationName} </i>
                 <div>
-                    <Link to={`/${organisationName}/logs`}>{organisationName} gemte Logs</Link>
+                    <img id="img-org" className="image-resize float-right1" src={orgImage}></img>
+                    <Link className="btn btn-outline-dark logs-button" to={`/${organisationName}/logs`}>LOGS</Link>
+                </div>
+                <div>
+                    <h2 className="loading center-loading" id="empty_string"></h2>
                 </div>
             </div>
-            {
-                question.map(
-                    questionMap =>
-                        <div className="message-box recruiter-margin">
-                            <div key={questionMap.id}>
-                                <div className="padding-recruiter col-10">{questionMap.question}</div>
-                                <div className="">
-                                    <form>
-                                        <div className="row">
-                                            <div className="col-10">
-                                                <input
-                                                    id="answer-input"
-                                                    type="text"
-                                                    placeholder="Enter answer"
-                                                    name="answer"
-                                                    className="form-control"
-                                                    onChange={(a) => setAnswer(a.target.value)}
-                                                >
-                                                </input>
+            <div className="border-qa">
+                {
+                    question.map(
+                        questionMap =>
+                            <div className="message-box recruiter-margin">
+                                <div key={questionMap.id}>
+                                    <div className="padding-recruiter col-10">{questionMap.question}</div>
+                                    <div className="">
+                                        <form>
+                                            <div className="row">
+                                                <div className="col-10">
+                                                    <input
+                                                        id="answer-input"
+                                                        type="text"
+                                                        placeholder="Enter answer"
+                                                        name="answer"
+                                                        className="form-control"
+                                                        onChange={(a) => setAnswer(a.target.value)}
+                                                    >
+                                                    </input>
+                                                </div>
+                                                <div className="col-2">
+                                                    <button type="submit" className="btn-success btn" id="sendAnswer"
+                                                            onClick={(a) => answerQuestion(a, questionMap.questionId)}>Answer
+                                                        question
+                                                    </button>
+                                                </div>
                                             </div>
-                                            <div className="col-2">
-                                                <button type="submit" className="btn-success btn" id="sendAnswer"
-                                                        onClick={(a) => answerQuestion(a, questionMap.questionId)}>Answer
-                                                    question
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </form>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                )
-            }
+                    )
+                }
+            </div>
         </div>
     )
 }

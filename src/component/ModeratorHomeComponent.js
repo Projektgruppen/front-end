@@ -62,7 +62,7 @@ const ModeratorHomeComponent = () => {
             </header>
             <div className="container col">
                 <div className="d-flex justify-content-center mt-1">
-                    <p>Settings</p>
+                    <p>Global Settings</p>
                 </div>
                 <div className="d-flex justify-content-center">
                     <Link

@@ -2,14 +2,13 @@ import React, {useState, useEffect} from "react";
 import {Link, useParams} from 'react-router-dom'
 import ModeratorService from "../service/ModeratorService";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import ReactTooltip from 'react-tooltip';
 
 const ModeratorComponent = () => {
 
     const [question, setQuestion] = useState([])
     const {organisationName} = useParams();
 
-    //Fetches all unapproved questions.
+    {/*Fetches all unapproved questions.*/}
     const getAllUnapprovedQuestions = () => {
         ModeratorService.getAllUnapprovedQuestions(organisationName).then((response) => {
             setQuestion(response.data)
@@ -19,7 +18,7 @@ const ModeratorComponent = () => {
     }
 
 
-    //Runs when page refreshes and each second afterwards.
+    {/*Runs when page refreshes and each second afterwards.*/}
     useEffect(() => {
         getAllUnapprovedQuestions();
         const interval = setInterval(() => {

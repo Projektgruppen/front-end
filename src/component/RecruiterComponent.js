@@ -10,7 +10,6 @@ const RecruiterComponent = () => {
     let orgImage;
 
 
-    //Gets all the questions that the recruiter should review.
     const getAllReviewedQuestions = () => {
         RecruiterService.getAllReviewedQuestions(organisationName).then((response) => {
             setQuestion(response.data)
@@ -43,7 +42,7 @@ const RecruiterComponent = () => {
 
     loadOrgLogo();
 
-    //Fetches all questions on page load, and then every second afterwards.
+
     useEffect(() => {
         getAllReviewedQuestions();
         const interval = setInterval(() => {
@@ -53,7 +52,6 @@ const RecruiterComponent = () => {
     }, [])
 
 
-    //Update question with answer
     const answerQuestion = (a, q_id) => {
         a.preventDefault()
 

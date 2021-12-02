@@ -18,6 +18,26 @@ class ModeratorService {
 
     }
 
+    getAllOrganisations(){
+        return axios.get(MODERATOR_BASE_REST_API_URL + '/organisations')
+    }
+
+    createOrganisation(organisationObj){
+        return axios.post(MODERATOR_BASE_REST_API_URL + "/neworganisation", organisationObj)
+    }
+
+    newOrganisationSession(organisationName){
+        return axios.post(MODERATOR_BASE_REST_API_URL + "/"+ organisationName + "/newsession")
+    }
+
+    newOrganisationSessionForAll(){
+        return axios.post(MODERATOR_BASE_REST_API_URL + "/newsessionforall")
+    }
+
+    autoReview(organisationName, state){
+        return axios.put(MODERATOR_BASE_REST_API_URL + "/" + organisationName + "/autoreview/" + state)
+    }
+
 }
 
 export default new ModeratorService();

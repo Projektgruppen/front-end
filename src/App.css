@@ -37,7 +37,7 @@
 }
 .QAfeed{
   height: 75vh;
-  overflow:scroll;
+  overflow-x:hidden;
 }
 .chat-name{
   height: 5vh ;
@@ -60,6 +60,7 @@
   margin-bottom: 7px !important;
 }
 .question{
+  text-align: left;
   margin: 5px !important;
   word-wrap: break-word;
 }
@@ -73,8 +74,9 @@
 .stream{
   padding-top: 300px;
 }
-.disable-scroll{
-  overflow: hidden !important;
+.disable-scroll::-webkit-scrollbar{
+  overflow-x: hidden !important;
+
 }
 .link-change{
   background-color: lightgrey;
@@ -91,8 +93,7 @@
   padding: 2px !important;
   font-size: 14px !important;
 }
-.review-padding{
-}
+
 .font-size{
   font-size: 16px;
   word-wrap: break-word;
@@ -129,4 +130,51 @@
   margin: 2px;
   position: relative;
   float: right;
+}
+
+.timestamp{
+  float: right;
+}
+
+
+
+.loading:after {
+  content: ' .';
+  animation: dots 1s steps(5, end) infinite;}
+
+@keyframes dots {
+  0%, 20% {
+    color: rgba(0,0,0,0);
+    text-shadow:
+            .25em 0 0 rgba(0,0,0,0),
+            .5em 0 0 rgba(0,0,0,0);}
+  40% {
+    color: black;
+    text-shadow:
+            .25em 0 0 rgba(0,0,0,0),
+            .5em 0 0 rgba(0,0,0,0);}
+  60% {
+    text-shadow:
+            .25em 0 0 black,
+            .5em 0 0 rgba(0,0,0,0);}
+  80%, 100% {
+    text-shadow:
+            .25em 0 0 black,
+            .5em 0 0 black;}}
+
+.center-loading{
+  padding-top: 15%;
+
+}
+.image-resize{
+  max-width: 15%;
+  margin-left: 90%;
+  margin-top: 20px;
+}
+.left-top{
+  margin-right: 95%;
+}
+.logs-button{
+  margin-left: 95%;
+  margin-top: 5px;
 }

@@ -5,7 +5,6 @@ import ModeratorHomeComponent from './component/ModeratorHomeComponent';
 import ModeratorNewOrganisationComponent from './component/ModeratorNewOrganisationComponent';
 import StudentComponent from "./component/StudentComponent";
 import RecruiterComponent from "./component/RecruiterComponent";
-import LogComponent from './component/LogComponent';
 import Iframe from "./component/Iframe";
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faCheck, fas, faUserCheck } from '@fortawesome/free-solid-svg-icons';
@@ -25,6 +24,7 @@ function App() {
 
                     {/*recruiter routes*/}
                     <Route path="/recruiter/:organisationName" component={RecruiterComponent}></Route>
+                    <Route path="/:organisationName/logs" component={RecruiterLogComponent}></Route>
 
                     {/*moderator routes*/}
                     <Route path="/moderator/:organisationName" component={ModeratorComponent}></Route>

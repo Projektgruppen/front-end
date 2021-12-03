@@ -58,7 +58,7 @@ const RecruiterLogComponent = () => {
                                 <table className="table table-bordered table-striped table-hover">
                                     <thead>
                                     <th>Session id</th>
-                                    <th>Time created</th>
+                                    <th>Tid for oprettelse</th>
                                     <th>Download log</th>
                                     </thead>
                                     <tbody>

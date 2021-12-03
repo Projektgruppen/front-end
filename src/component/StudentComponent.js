@@ -97,14 +97,14 @@ const StudentComponent = () => {
                                 className="input-group our-input from-control"
                                 id="inputQuestion"
                                 type="textarea"
-                                placeholder="Enter question"
+                                placeholder="Skriv spørgsmål"
                                 name="question"
                                 value={question}
                                 onChange={(q) => setQuestion(q.target.value)}
                                 maxLength="255"
                             >
                             </input><br></br>
-                            <button type="submit" className="btn-success btn" id="sendQuestion" onClick={(q) => createQAMessage(q)}>Ask Question</button>
+                            <button type="submit" className="btn-success btn" id="sendQuestion" onClick={(q) => createQAMessage(q)}>Stil spørgsmål</button>
                         </div>
                     </form>
                 </div>

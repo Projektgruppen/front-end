@@ -15,6 +15,7 @@ const ModeratorHomeComponent = () => {
     {/*Fetches all organisations*/ }
     const getAllOrganisations = () => {
         ModeratorService.getAllOrganisations().then((response) => {
+            console.log(response.data)
             setOrganisation(response.data)
         }).catch(error => {
             console.log(error);
@@ -104,7 +105,7 @@ const ModeratorHomeComponent = () => {
                                         <Card.Title><p className="text-capitalize text-center">{organisationMap.name}</p></Card.Title>
                                         <div className="d-flex justify-content-center p-2">
                                             <Card.Text>
-                                                <p className="mb-0 myspacing-right">Current id: {organisationMap.currentSession}</p>
+                                                <p className="mb-0 myspacing-right">Current id: {organisationMap.currentSessionId}</p>
                                             </Card.Text>
                                             <Link
                                                 className="btn btn-light hover newssionbutton"

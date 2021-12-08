@@ -12,6 +12,13 @@ const ModeratorComponent = () => {
     const getAllUnapprovedQuestions = () => {
         ModeratorService.getAllUnapprovedQuestions(organisationName).then((response) => {
             setQuestion(response.data)
+            if (response.data.length === 0) {
+                document.getElementById("empty_string").innerHTML = "Vent venligst på indkommende spørgsmål"
+                document.getElementById("empty_string").className = "loading center-loading"
+            } else {
+                document.getElementById("empty_string").innerHTML = ""
+                document.getElementById("empty_string").className = ""
+            }
         }).catch(error => {
             console.log(error);
         })
@@ -48,11 +55,14 @@ const ModeratorComponent = () => {
     return (
         <div>
             <br/> <br/>
-            <div className="container-xl">
+            <div className="container-xl text-center">
                 <div className="row">
                     <div>
                         <div>
                             <h2 className="text-center headline">{organisationName.toUpperCase()}</h2>
+                            <div>
+                                <h2 className="loading center-loading" id="empty_string"></h2>
+                            </div>
                             <div className="form-group mb-2">
                                 {
                                     question.map(

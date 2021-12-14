@@ -12,7 +12,6 @@ class StudentService {
         console.log(question);
         return axios.post (STUDENT_BASE_REST_API_URL + "/" + organisationName + "/question", question)
     }
-
 }
 
 export default new StudentService();

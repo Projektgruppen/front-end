@@ -78,7 +78,7 @@ const StudentComponent = () => {
                             questionMap =>
                                 <div key={questionMap.id} className="QAMessage">
                                     <p className="question"><b>Q:  </b>{questionMap.question}
-                                        <span className= "timestamp">{questionMap.timeOfCreationForQuestion}</span>
+                                        <span className= "timestamp">{questionMap.timeOfApprovalForQuestion}</span>
                                     </p>
                                     <div className="linebreak"></div>
                                     <p id="answer" className={` question ${questionMap.answer ? " " : "hidden"}`}> <b> A:  </b> {questionMap.answer}
@@ -97,14 +97,14 @@ const StudentComponent = () => {
                                 className="input-group our-input from-control"
                                 id="inputQuestion"
                                 type="textarea"
-                                placeholder="Enter question"
+                                placeholder="Skriv spørgsmål"
                                 name="question"
                                 value={question}
                                 onChange={(q) => setQuestion(q.target.value)}
                                 maxLength="255"
                             >
                             </input><br></br>
-                            <button type="submit" className="btn-success btn" id="sendQuestion" onClick={(q) => createQAMessage(q)}>Ask Question</button>
+                            <button type="submit" className="btn-success btn" id="sendQuestion" onClick={(q) => createQAMessage(q)}>Stil spørgsmål</button>
                         </div>
                     </form>
                 </div>

@@ -55,7 +55,7 @@ const ModeratorComponent = () => {
     return (
         <div>
             <br/> <br/>
-            <div className="container-xl text-center">
+            <div className="container-xl">
                 <div className="row">
                     <div>
                         <div>

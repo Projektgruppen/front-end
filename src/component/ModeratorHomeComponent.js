@@ -5,7 +5,6 @@ import { Container } from "react-bootstrap";
 import { Card } from "react-bootstrap";
 import ModeratorService from "../service/ModeratorService";
 import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
 const ModeratorHomeComponent = () => {

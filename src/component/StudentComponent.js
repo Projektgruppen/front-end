@@ -32,17 +32,17 @@ const StudentComponent = () => {
 
 
     //Student question cooldown function
-    function countDown() {
+    function coolDown() {
         let i = 10;
         document.getElementById("inputQuestion").readOnly = true;
         const button = document.querySelector('button');
         button.disabled = true;
 
-        let coolDown = setInterval(function () {
+        let startCoolDown = setInterval(function () {
             setQuestion("You can now write again in: " + i + " sec");
             i--;
             if (i < 0) {
-                clearInterval(coolDown);
+                clearInterval(startCoolDown);
                 document.getElementById("inputQuestion").readOnly = false;
                 button.disabled = false;
 
@@ -52,13 +52,13 @@ const StudentComponent = () => {
     }
 
     //Creates a new message
-    const createQAMessage = (q) => {
+    const createQuestion = (q) => {
         q.preventDefault();
         const questionObj = {question};
 
-        StudentService.createQuestion(organisationName, questionObj).then((response) => {
+        StudentService.createQuestion(organisationName, questionObj).then(() => {
             history.push(`/student/${organisationName}`);
-            countDown();
+            coolDown();
         }).catch(error => {
             console.log(error)
         })
@@ -104,7 +104,7 @@ const StudentComponent = () => {
                                 maxLength="255"
                             >
                             </input><br></br>
-                            <button type="submit" className="btn-success btn" id="sendQuestion" onClick={(q) => createQAMessage(q)}>Stil spørgsmål</button>
+                            <button type="submit" className="btn-success btn" id="sendQuestion" onClick={(q) => createQuestion(q)}>Stil spørgsmål</button>
                         </div>
                     </form>
                 </div>

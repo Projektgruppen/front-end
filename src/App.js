@@ -32,8 +32,8 @@ function App() {
                     <Route path="/new/organisation/moderator/" component={ModeratorNewOrganisationComponent}></Route>
 
                     {/*log page routes*/}
-                   
-                    //log page route
+
+                    {/*log page route*/}
                     <Route path="/:organisationName/logs" component={RecruiterLogComponent}></Route>
 
                     {/*ifram routes*/}
